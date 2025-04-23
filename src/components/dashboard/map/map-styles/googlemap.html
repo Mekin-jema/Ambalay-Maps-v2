@@ -1,0 +1,56 @@
+
+
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Demo: Switch from Google Maps to Mapbox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.js"></script>
+    <link
+      href="https://api.tiles.mapbox.com/mapbox-gl-js/v3.3.0/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+// mapboxgl.accessToken = 'pk.eyJ1IjoibWVraW5qZW1hbCIsImEiOiJjbTV6djdrdWYwNTR1MmtzZ3FrdnJvN2V6In0.5OtQaE1mqvEce8hZvvLgfw ';
+
+
+      const map = new mapboxgl.Map({
+        container: 'map', // HTML container id
+        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        center: [-21.92661562, 64.14356426], // starting position as [lng, lat]
+        zoom: 13
+      });
+
+      const popup = new mapboxgl.Popup().setHTML(
+        `<h3>Reykjavik Roasters</h3><p>A good coffee shop</p>`
+      );
+
+      const marker = new mapboxgl.Marker()
+        .setLngLat([-21.92661562, 64.14356426])
+        .setPopup(popup)
+        .addTo(map);
+    </script>
+  </body>
+</html>
+
+
+
+
