@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Mail, Lock, ArrowRight, Loader2 } from "lucide-react";
-import { z } from "zod";
+// import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import {
