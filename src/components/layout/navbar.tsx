@@ -35,7 +35,7 @@ interface FeatureProps {
 
 const routeList: RouteProps[] = [
   {
-    href:"#home",
+    href:"/#home",
     label: "Home",
   },
   {
@@ -196,7 +196,7 @@ export const Navbar = () => {
         </NavigationMenuList>
       </NavigationMenu>
      <Button className="mr-6">
-       <Link href="/login">Login</Link>
+       <Link href="/auth/login">Login</Link>
       </Button>
       <div className="hidden lg:flex">
         <ToggleTheme />

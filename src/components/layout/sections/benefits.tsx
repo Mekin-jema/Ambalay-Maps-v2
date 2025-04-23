@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon";
 import { icons } from "lucide-react";
@@ -35,22 +37,22 @@ const benefitList: BenefitsProps[] = [
   },
 ];
 
-
-export const BenefitsSection = () => {
+const BenefitsSection = () => {
   return (
     <section id="benefits" className="container py-24 sm:py-32">
       <div className="grid lg:grid-cols-2 place-items-center lg:gap-24">
         <div>
-        <h2 className="text-lg text-primary mb-2 tracking-wider">Services</h2>
+          <h2 className="text-lg text-primary mb-2 tracking-wider">Services</h2>
 
-<h2 className="text-3xl md:text-4xl font-bold mb-4">
-  Empowering Smarter Navigation
-</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Empowering Smarter Navigation
+          </h2>
 
-<p className="text-xl text-muted-foreground mb-8">
-  From interactive maps to advanced route optimization, Ambalay Maps provides essential geospatial tools to streamline logistics, urban planning, and real-time decision-making across Ethiopia.
-</p>
-
+          <p className="text-xl text-muted-foreground mb-8">
+            From interactive maps to advanced route optimization, Ambalay Maps
+            provides essential geospatial tools to streamline logistics, urban
+            planning, and real-time decision-making across Ethiopia.
+          </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-4 w-full">
@@ -85,3 +87,6 @@ export const BenefitsSection = () => {
     </section>
   );
 };
+
+
+export default BenefitsSection;
