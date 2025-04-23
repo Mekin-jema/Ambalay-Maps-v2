@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Mail, Lock, User, ArrowRight, Loader2 } from "lucide-react";
-import { z } from "zod";
+// import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -16,15 +16,15 @@ import {
 } from "@/components/ui/card";
 import {
   Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  // FormControl,
+  // FormField,
+  // FormItem,
+  // FormLabel,
+  // FormMessage,
 } from "@/components/ui/form";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
-import { GoogleIcon } from "@/components/ui/google-icon";
+// import { GoogleIcon } from "@/components/ui/google-icon";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
 import { InputField } from "@/components/Auth/FormFields";
 import { SignUpFormValues, signUpSchema } from "@/lib/schema/signupSchema";
