@@ -19,7 +19,7 @@ const Dashboard = () => {
         title: "Signed out successfully",
         description: "You have been signed out successfully.",
       });
-      router.push("/login");
+      router.push("/auth/login");
     } catch (error) {
       toast({
         variant: "destructive",

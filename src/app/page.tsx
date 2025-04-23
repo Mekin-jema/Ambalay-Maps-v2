@@ -1,4 +1,5 @@
-import BenefitsSection from "@/components/layout/sections/benefits";
+import { Navbar } from "@/components/layout/navbar";
+import { BenefitsSection } from "@/components/layout/sections/benefits";
 import { CommunitySection } from "@/components/layout/sections/community";
 import { ContactSection } from "@/components/layout/sections/contact";
 import { FAQSection } from "@/components/layout/sections/faq";
@@ -11,7 +12,7 @@ import { TestimonialSection } from "@/components/layout/sections/testimonial";
 
 export default function Home() {
   return (
-    <>
+    <><Navbar/>
       <HeroSection />
       <SponsorsSection />
       <BenefitsSection />
