@@ -65,16 +65,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-block">
-            <div className="flex items-center justify-center space-x-2">
-              <div className="w-8 h-8 rounded-md bg-primary/90 flex items-center justify-center text-white font-bold">
-                A
-              </div>
-              <h1 className="text-2xl font-bold">AffiliateX</h1>
-            </div>
-          </Link>
-        </div>
+
 
         <Card className="border-none shadow-lg">
           <CardHeader className="space-y-1">
@@ -162,7 +153,7 @@ const Login = () => {
             <div className="text-center text-sm">
               Don't have an account?{" "}
               <Link
-                href="/signup"
+                href="/auth/signup"
                 className="font-medium text-primary underline-offset-4 hover:underline"
               >
                 Sign up
