@@ -14,6 +14,7 @@ import { ReactNode } from "react";
 import { NavUser } from "./navbar/nav-user";
 import { NavMain } from "./main-sidebar";
 
+import logo from "../../../public/logo.png"
 interface AppSidebarProps {
   children?: ReactNode;
   [key: string]: any; // For remaining props
@@ -31,7 +32,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
       {state !== "collapsed" ? (
         <div className="flex justify-center items-center">
           <Image
-            src="./file.svg"
+            src={logo}
             alt="logo image"
             className="mt-2 w-[120px] h-[50.05px]"
             width={120}
