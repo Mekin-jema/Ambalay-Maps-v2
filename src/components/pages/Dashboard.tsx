@@ -21,6 +21,7 @@ const Dashboard = () => {
       });
       router.push("/auth/login");
     } catch (error) {
+      console.error("Sign out error:", error);
       toast({
         variant: "destructive",
         title: "error signing out",

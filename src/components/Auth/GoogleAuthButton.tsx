@@ -40,6 +40,7 @@ export const GoogleAuthButton = ({
             : "Your account has been created successfully.",
       });
     } catch (error) {
+      console.log("Google Auth Error:", error);
       toast({
         variant: "destructive",
         title: action === "login" ? "Error logging in" : "Error signing up",

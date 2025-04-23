@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { Mail, ArrowRight, Loader2 } from "lucide-react";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+// import { z } from "zod";
+// import { Input } from "@/components/ui/input";
 import {
   Card,
   CardContent,
@@ -16,11 +16,11 @@ import {
 } from "@/components/ui/card";
 import {
   Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+  // FormControl,
+  // FormField,
+  // FormItem,
+  // FormLabel,
+  // FormMessage,
 } from "@/components/ui/form";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";

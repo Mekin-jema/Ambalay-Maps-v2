@@ -1,5 +1,5 @@
 "use client";
-import { Mail, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, Eye, EyeOff } from "lucide-react";
 import {
   FormField,
   FormItem,
