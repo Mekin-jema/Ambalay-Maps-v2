@@ -1,4 +1,27 @@
-const getPlaceNameFromCoordinates = async (lngLat) => {
+type Coordinates = {
+  lat: number;
+  lng: number;
+};
+
+type NominatimResponse = {
+  name?: string;
+  address?: {
+    city?: string;
+    town?: string;
+    village?: string;
+    neighbourhood?: string;
+    suburb?: string;
+    county?: string;
+    state?: string;
+    state_district?: string;
+    country?: string;
+    [key: string]: any; // Catch any extra fields
+  };
+};
+
+const getPlaceNameFromCoordinates = async (
+  lngLat: Coordinates
+): Promise<string> => {
   try {
     const response = await fetch(
       `https://nominatim.openstreetmap.org/reverse?lat=${lngLat.lat}&lon=${lngLat.lng}&format=json`
@@ -8,10 +31,10 @@ const getPlaceNameFromCoordinates = async (lngLat) => {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    const data = await response.json(); // Parse the response as JSON
+    const data: NominatimResponse = await response.json(); // Parse and type the response
 
     const placeName =
-      data?.name || // Prioritize place name if available
+      data?.name ||
       data?.address?.city ||
       data?.address?.town ||
       data?.address?.village ||
@@ -23,7 +46,7 @@ const getPlaceNameFromCoordinates = async (lngLat) => {
       data?.address?.country ||
       "";
 
-    return placeName; // Return the extracted place name
+    return placeName;
   } catch (error) {
     console.error("Error fetching place name:", error);
     return "Unknown Location";
