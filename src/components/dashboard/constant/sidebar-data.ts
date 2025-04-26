@@ -57,7 +57,7 @@ import {
             url: "/dashboard",
             icon: LayoutGrid,
           },
-          { title: "API Keys", url: "/dashboard/api-keys", icon: KeyRound },
+          { title: "API Keys", url: "/dashboard/product", icon: KeyRound },
           { title: "Analytics & Logs", url: "/dashboard/analytics-logs", icon: Sliders },
           { title: "Billing & Subscription", url: "/dashboard/billing-subscription", icon: CreditCard },
           { title: "Map", url: "/dashboard/map", icon: MapPinnedIcon },
