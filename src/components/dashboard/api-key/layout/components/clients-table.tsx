@@ -1,4 +1,7 @@
 import {
+  type ColumnDef,
+  type RowData,
+  type VisibilityState,
   flexRender,
   getCoreRowModel,
   getSortedRowModel,
@@ -13,12 +16,26 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
-import { DataTablePagination } from './data-table-pagination'
-import { DataTableToolbar } from './data-table-toolbar'
+import { DataTablePagination ,type PaginationProps} from './data-table-pagination'
+import { DataTableToolbar,type FacetedCountProps } from './data-table-toolbar'
+import { User } from '../../shared/data/schema'
+declare module '@tanstack/react-table' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ColumnMeta<TData extends RowData, TValue> {
+    className: string
+  }
+}
 
-export function UsersTable({ columns, data, pagination, facetedCounts }) {
+interface DataTableProps {
+  columns: ColumnDef<User>[]
+  data: User[]
+  pagination: PaginationProps
+  facetedCounts?: FacetedCountProps
+}
+
+export function UsersTable({ columns, data, pagination, facetedCounts }:DataTableProps) {
   const [rowSelection, setRowSelection] = useState({})
-  const [columnVisibility, setColumnVisibility] = useState({})
+  const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
 
   const table = useReactTable({
     data,

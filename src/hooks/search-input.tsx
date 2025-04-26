@@ -2,15 +2,11 @@ import { useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 
-
-interface SearchInputProps extends React.ComponentPropsWithRef<typeof Input> {
-  onSearch: (text: string) => void
-}
-export const SearchInput = ({ className, onSearch, ...rest }:SearchInputProps) => {
+export const SearchInput = ({ className, onSearch, ...rest }) => {
   const isImeOn = useRef(false) // IME = Input Method Editor, e.g. Japanese keyboard
   const [prevText, setPrevText] = useState('')
 
-  const handleChange = (text:string) => {
+  const handleChange = (text) => {
     if (prevText === text) return
     if (text === '') {
       // onCompositionEnd may not be called in Chrome when clearing text
@@ -35,7 +31,7 @@ export const SearchInput = ({ className, onSearch, ...rest }:SearchInputProps) =
       }}
       onCompositionEnd={(e) => {
         isImeOn.current = false
-        handleChange((e.target as HTMLInputElement).value)
+        handleChange(e.target.value)
       }}
       className={cn('h-8 w-[150px] lg:w-[250px]')}
       {...rest}

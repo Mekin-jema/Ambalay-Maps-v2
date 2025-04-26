@@ -17,22 +17,32 @@ import {
 } from '@/components/ui/popover'
 import { Separator } from '@/components/ui/separator'
 import { cn } from '@/lib/utils'
-import { useDataTableState } from '../hooks/use-data-table-state'
+import { useDataTableState,type Filters } from '../hooks/use-data-table-state'
+import type * as React from 'react'
 
-
+interface DataTableFacetedFilterProps {
+  title?: string
+  filterKey: keyof Filters
+  options: {
+    label: string
+    value: string
+    count?: number
+    icon?: React.ComponentType<{ className?: string }>
+  }[]
+}
 
 export function DataTableFacetedFilter({
   title,
   filterKey,
   options,
-}) {
+}:DataTableFacetedFilterProps) {
   const { filters, updateFilters } = useDataTableState()
   const selectedValues = filters[filterKey]
 
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="none" size="sm" className="h-8 border-dashed ">
+        <Button  size="sm" className="h-8 border-dashed ">
           <PlusCircledIcon className="h-4 w-4" />
           {title}
           {selectedValues?.length > 0 && (

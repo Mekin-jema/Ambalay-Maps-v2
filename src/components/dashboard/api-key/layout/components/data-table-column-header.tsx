@@ -5,6 +5,7 @@ import {
   EyeNoneIcon,
 } from '@radix-ui/react-icons'
 // import type { Column } from '@tanstack/react-table'
+import type { Column } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -18,7 +19,7 @@ import { useDataTableState } from '../hooks/use-data-table-state'
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {
-  column:any,
+  column: Column<TData, TValue>,
   title: string
 }
 

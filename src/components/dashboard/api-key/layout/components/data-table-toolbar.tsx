@@ -1,12 +1,20 @@
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { Button } from '@/components/ui/button'
+import type { Table } from '@tanstack/react-table'
 import { clientTypes } from '../../shared/data/data'
 import { DataTableFacetedFilter } from './data-table-faceted-filter'
 import { DataTableViewOptions } from './data-table-view-options'
-import { SearchInput } from './search-input'
 import { useDataTableState } from '../hooks/use-data-table-state'
+import { SearchInput } from './search-input'
 
-export function DataTableToolbar({ table, facetedCounts }) {
+export type FacetedCountProps = Record<string, Record<string, number>>
+
+interface DataTableToolbarProps<TData> {
+  table: Table<TData>
+  facetedCounts?: FacetedCountProps
+}
+
+export function DataTableToolbar<TData>({ table, facetedCounts }: DataTableToolbarProps<TData>) {
   const {
     queries,
     updateQueries,

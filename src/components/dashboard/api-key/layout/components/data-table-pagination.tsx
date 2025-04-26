@@ -4,6 +4,7 @@ import {
   DoubleArrowLeftIcon,
   DoubleArrowRightIcon,
 } from '@radix-ui/react-icons'
+import type { Table } from '@tanstack/react-table'
 import { Button } from '@/components/ui/button'
 import {
   Select,
@@ -13,8 +14,19 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { useDataTableState } from '../hooks/use-data-table-state'
+interface DataTablePaginationProps<TData> {
+  table: Table<TData>
+  pagination: PaginationProps
+}
 
-export function DataTablePagination({ table, pagination }) {
+export interface PaginationProps {
+  currentPage: number
+  pageSize: number
+  totalPages: number
+  totalItems: number
+}
+
+export function DataTablePagination({ table, pagination }:DataTablePaginationProps<any>) {
   const { updatePagination } = useDataTableState()
   const { currentPage, pageSize, totalPages, totalItems } = pagination
 
