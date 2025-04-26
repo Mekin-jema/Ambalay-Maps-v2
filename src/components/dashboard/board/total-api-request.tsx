@@ -6,23 +6,48 @@ import {
 } from "recharts";
 import { MapPin, Compass, Layers, BarChart as BarChartIcon } from "lucide-react";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
-import { Main } from "../main";
+import { Main } from "../utils/main";
 
-const apiData = [
+
+interface ApiDataItem {
+  name: string;
+  value: number;
+  color: string;
+  icon: React.JSX.Element;
+}
+
+interface MockDataItem {
+  id: number;
+  title: string;
+  value: string;
+  icon: React.JSX.Element;
+}
+
+interface PerformanceDataItem {
+  day: string;
+  requests: number;
+}
+
+interface WeeklyOverviewDataItem {
+  name: string;
+  sales: number;
+}
+
+const apiData: ApiDataItem[] = [
   { name: "Matrix ", value: 25, color: "#4ade80", icon: <Layers /> },
   { name: "Direction", value: 35, color: "#3b82f6", icon: <Compass /> },
   { name: "Routing", value: 30, color: "#f472b6", icon: <BarChartIcon /> },
   { name: "Geocoding", value: 25, color: "#f97316", icon: <MapPin /> },
 ];
 
-const mockData = [
+const mockData: MockDataItem[] = [
   { id: 1, title: "Geocoding Request", value: "244,234", icon: <MapPin className="text-muted-foreground h-5 w-5" /> },
   { id: 2, title: "Routing", value: "34,523", icon: <Compass className="text-muted-foreground h-5 w-5" /> },
   { id: 3, title: "Directions", value: "343,545", icon: <BarChartIcon className="text-muted-foreground h-5 w-5" /> },
   { id: 4, title: "Matrix", value: "4,573", icon: <Layers className="text-muted-foreground h-5 w-5" /> },
 ];
 
-const performanceData = [
+const performanceData: PerformanceDataItem[] = [
   { day: "Mon", requests: 600 },
   { day: "Tue", requests: 500 },
   { day: "Wed", requests: 700 },
@@ -31,7 +56,7 @@ const performanceData = [
   { day: "Sat", requests: 480 },
 ];
 
-const weeklyOverviewData = [
+const weeklyOverviewData: WeeklyOverviewDataItem[] = [
   { name: "Mon", sales: 30 },
   { name: "Tue", sales: 40 },
   { name: "Wed", sales: 50 },
@@ -40,12 +65,11 @@ const weeklyOverviewData = [
   { name: "Sat", sales: 45 },
 ];
 
-const Billing = () => {
+const Billing: React.FC = () => {
   return (
-    <Main className=" p-2 h-full  rounded-xl ">
-
-      {/* /* Top Stat Cards */}
-      <Card className="rounded-2xl  border-none h-[155px]">
+    <Main className="p-2 h-full rounded-xl">
+      {/* Top Stat Cards */}
+      <Card className="rounded-2xl border-none h-[155px]">
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 h-full pt-6">
           {mockData.map((item) => (
             <Card
@@ -70,7 +94,7 @@ const Billing = () => {
           <CardHeader>
             <CardTitle className="text-lg font-semibold">API Request Distribution</CardTitle>
           </CardHeader>
-          <CardContent className="relative" >
+          <CardContent className="relative">
             <div className="relative w-[250px] mx-auto">
               <PieChart width={250} height={250}>
                 <Pie
@@ -112,25 +136,24 @@ const Billing = () => {
               })}
             </div>
 
-            {/* /* Legends */}
-            <ul className="text-sm grid grid-cols-2  ">
+            {/* Legends */}
+            <ul className="text-sm grid grid-cols-2">
               {apiData.map((entry, index) => (
                 <li key={index} className="flex items-center space-x-2">
                   <div
                     className="w-3 h-3 rounded-full"
                     style={{ background: entry.color }}
                   ></div>
-                  <span className="">{entry.name}</span>
-                  <span className="">{entry.value}%</span>
+                  <span>{entry.name}</span>
+                  <span>{entry.value}%</span>
                 </li>
               ))}
             </ul>
           </CardContent>
-
         </Card>
 
         {/* Weekly Performance Chart */}
-        <Card className=" rounded-2xl   bg-[#E9EFEC] dark:bg-background">
+        <Card className="rounded-2xl bg-[#E9EFEC] dark:bg-background">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">Weekly Performance</CardTitle>
           </CardHeader>
@@ -153,7 +176,7 @@ const Billing = () => {
         </Card>
 
         {/* Weekly Overview Bar Chart */}
-        <Card className=" rounded-2xl   bg-[#E9EFEC] dark:bg-background">
+        <Card className="rounded-2xl bg-[#E9EFEC] dark:bg-background">
           <CardHeader>
             <CardTitle className="text-lg font-semibold">Weekly Overview</CardTitle>
           </CardHeader>
@@ -172,7 +195,6 @@ const Billing = () => {
             </div>
           </CardContent>
         </Card>
-
       </div>
     </Main>
   );

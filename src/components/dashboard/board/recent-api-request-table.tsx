@@ -9,7 +9,15 @@ import {
   TableFooter,
 } from "@/components/ui/table";
 
-const recentRequests = [
+// Define the type for the request data
+interface APIRequest {
+  timestamp: string;
+  type: string;
+  status: string;
+  responseTime: string;
+}
+
+const recentRequests: APIRequest[] = [
   {
     timestamp: "2024-10-20 10:15 AM",
     type: "Geocoding",
@@ -19,7 +27,7 @@ const recentRequests = [
   {
     timestamp: "2024-10-20 10:20 AM",
     type: "Routing",
-    status: "Failed  ",
+    status: "Failed",
     responseTime: "300ms",
   },
   {

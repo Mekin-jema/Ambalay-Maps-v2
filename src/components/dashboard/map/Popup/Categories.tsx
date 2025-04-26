@@ -20,15 +20,35 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { X } from "lucide-react"; // For the close icon
 
-const Categories = ({
+// Types
+interface POI {
+  id: string;
+  name: string;
+  icon: string;
+  lat: number;
+  lng: number;
+  tourism?: string;
+  opening_hours?: string;
+}
+
+interface CategoriesProps {
+  setShowCategoryDetailPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowFilterPopup: React.Dispatch<React.SetStateAction<boolean>>;
+  data: POI[];
+  setData: React.Dispatch<React.SetStateAction<POI[]>>;
+  map: maplibregl.Map;
+}
+
+// Categories Component
+const Categories: React.FC<CategoriesProps> = ({
   setShowCategoryDetailPopup,
   setShowFilterPopup,
   data,
   setData,
   map,
 }) => {
-  const [userLocation, setUserLocation] = useState({});
-  const [sortedData, setSortedData] = useState([]);
+  const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
+  const [sortedData, setSortedData] = useState<POI[]>([]);
   const dispatch = useDispatch();
 
   // Fetch user location
@@ -52,16 +72,14 @@ const Categories = ({
   }, []);
 
   // Format search results
-  const formatResult = (item) => {
-    return (
-      <>
-        <span style={{ display: "block", textAlign: "left" }}>{item.name}</span>
-      </>
-    );
-  };
+  const formatResult = (item: POI) => (
+    <>
+      <span style={{ display: "block", textAlign: "left" }}>{item.name}</span>
+    </>
+  );
 
   // Calculate distance between two coordinates
-  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+  const calculateDistance = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
     const R = 6371; // Radius of the Earth in km
     const dLat = (lat2 - lat1) * (Math.PI / 180);
     const dLon = (lon2 - lon1) * (Math.PI / 180);
@@ -79,18 +97,8 @@ const Categories = ({
   useEffect(() => {
     if (userLocation && data.length > 0) {
       const sorted = [...data].sort((a, b) => {
-        const distanceA = calculateDistance(
-          userLocation.lat,
-          userLocation.lng,
-          a.lat,
-          a.lng
-        );
-        const distanceB = calculateDistance(
-          userLocation.lat,
-          userLocation.lng,
-          b.lat,
-          b.lng
-        );
+        const distanceA = calculateDistance(userLocation.lat, userLocation.lng, a.lat, a.lng);
+        const distanceB = calculateDistance(userLocation.lat, userLocation.lng, b.lat, b.lng);
         return distanceA - distanceB;
       });
       setSortedData(sorted);
@@ -98,7 +106,7 @@ const Categories = ({
   }, [userLocation, data]);
 
   // Handle selection of a POI
-  const handleSelect = async (d) => {
+  const handleSelect = async (d: POI) => {
     if (!userLocation || !d.lat || !d.lng) {
       console.error("Invalid location data");
       return;
@@ -203,12 +211,7 @@ const Categories = ({
       <ScrollArea className="h-[calc(100%-200px)] p-4">
         {sortedData.map((d) => {
           const distance = userLocation
-            ? calculateDistance(
-                userLocation.lat,
-                userLocation.lng,
-                d.lat,
-                d.lng
-              ).toFixed(2)
+            ? calculateDistance(userLocation.lat, userLocation.lng, d.lat, d.lng).toFixed(2)
             : "Loading...";
 
           return (
@@ -217,10 +220,10 @@ const Categories = ({
               className="flex items-center justify-between p-3 cursor-pointer hover:bg-gray-100"
               onClick={() => handleSelect(d)}
             >
-              <Avatar className="h-8 w-8">
+              {/* <Avatar className="h-8 w-8">
                 <AvatarImage src={d.iconComp} alt={d.name} />
                 <AvatarFallback>{d.name[0]}</AvatarFallback>
-              </Avatar>
+              </Avatar> */}
               <div className="flex flex-col items-start flex-1 ml-4">
                 <span className="font-bold">{d.name}</span>
                 {d.tourism && (

@@ -1,23 +1,16 @@
-import React from "react";
+'use client';
+import React, { useState } from "react";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CheckCircle, Check, ChevronDown, CreditCard, Banknote } from "lucide-react";
-import { Link, useSearchParams } from "react-router-dom";
+import { CheckCircle, CreditCard, Banknote } from "lucide-react";
 import {
   Dialog,
   DialogTrigger,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
-
-
 import {
   Select,
   SelectTrigger,
@@ -25,9 +18,31 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Separator } from "@/components/ui/separator";
+import { useSearchParams } from "next/navigation"; // useSearchParams from Next.js
 
+interface Bank {
+  id: string;
+  name: string;
+}
 
-const banks = [
+interface Plan {
+  title: string;
+  description: string;
+  price: string;
+  features: string[];
+  current: boolean;
+}
+
+interface Feature {
+  title: string;
+  description: string;
+  price: string;
+}
+
+const banks: Bank[] = [
   { id: "nib", name: "Ethiopian Nib Bank" },
   { id: "coupon", name: "Coupon" },
   { id: "dashen", name: "Dashen Bank" },
@@ -35,8 +50,7 @@ const banks = [
   { id: "abyssinia", name: "Bank of Abyssinia" },
 ];
 
-
-const plans = [
+const plans: Plan[] = [
   {
     title: "Basic Routing",
     description: "Get started with basic routing services for your app.",
@@ -60,7 +74,7 @@ const plans = [
   },
 ];
 
-const additionalFeatures = [
+const additionalFeatures: Feature[] = [
   {
     title: "Geocoding API",
     description: "Get started with basic routing services for your app.",
@@ -74,11 +88,10 @@ const additionalFeatures = [
 ];
 
 export default function PricingPlans() {
-  const [couponCode, setCouponCode] = React.useState("");
-  const [selectedPayment, setSelectedPayment] = React.useState("");
-  const [selectedBank, setSelectedBank] = React.useState("");
-  const [cardNumber, setCardNumber] = React.useState("");
-
+  const [couponCode, setCouponCode] = useState<string>("");
+  const [selectedPayment, setSelectedPayment] = useState<string>("");
+  const [selectedBank, setSelectedBank] = useState<string>("");
+  const [cardNumber, setCardNumber] = useState<string>("");
 
   const paymentMethods = [
     {
@@ -94,21 +107,33 @@ export default function PricingPlans() {
       details: "Pay with Visa, Mastercard, etc.",
     },
   ];
-  const [searchParams] = useSearchParams();
+
+  const [searchParams] = useSearchParams(); // For Next.js
+
   return (
-    <Dialog className="p-4 space-y-4 ">
+    <Dialog >
       <div>
         <h2 className="text-2xl font-bold mb-4">Choose your plan</h2>
         <div className="grid md:grid-cols-3 gap-[25px]">
           {plans.map((plan, i) => (
-            <Card key={i} className="text-center  bg-[#E9EFEC] dark:bg-background">
+            <Card
+              key={i}
+              className="text-center  bg-[#E9EFEC] dark:bg-background"
+            >
               <CardContent className="p-6 space-y-4">
                 <h3 className="text-xl font-semibold">{plan.title}</h3>
                 <p className="text-sm">{plan.description}</p>
                 <ul className="space-y-1">
                   {plan.features.map((f, j) => (
-                    <li key={j} className="flex items-center justify-center text-sm">
-                      <CheckCircle className="h-4 w-4 text-white  mr-2" fill="#770E9C" /> {f}
+                    <li
+                      key={j}
+                      className="flex items-center justify-center text-sm"
+                    >
+                      <CheckCircle
+                        className="h-4 w-4 text-white mr-2"
+                        fill="#770E9C"
+                      />{" "}
+                      {f}
                     </li>
                   ))}
                 </ul>
@@ -116,14 +141,23 @@ export default function PricingPlans() {
 
                 {plan.current ? (
                   <DialogTrigger asChild>
-                    <Button variant="none" className="!rounded-[7px] dark:bg-[#F9F9F9] dark:text-[#37474F] bg-[#16423C] text-white ">Current Plan</Button>
+                    <Button
+                      variant="default"
+                      className="!rounded-[7px] dark:bg-[#F9F9F9] dark:text-[#37474F] bg-[#16423C] text-white"
+                    >
+                      Current Plan
+                    </Button>
                   </DialogTrigger>
                 ) : (
                   <DialogTrigger asChild>
-                    <Button variant="none " className="!rounded-[7px] dark:bg-[#F9F9F9] dark:text-[#37474F] bg-[#16423C] text-white">Upgrade Plan</Button>
+                    <Button
+                      variant="default"
+                      className="!rounded-[7px] dark:bg-[#F9F9F9] dark:text-[#37474F] bg-[#16423C] text-white"
+                    >
+                      Upgrade Plan
+                    </Button>
                   </DialogTrigger>
                 )}
-
               </CardContent>
             </Card>
           ))}
@@ -137,7 +171,7 @@ export default function PricingPlans() {
             <Card key={i} className="bg-[#E9EFEC] dark:bg-background w-[300px]">
               <CardContent className="p-6 space-y-2">
                 <h3 className="text-lg font-semibold">{feature.title}</h3>
-                <p className="text-sm ">{feature.description}</p>
+                <p className="text-sm">{feature.description}</p>
                 <div className="text-md font-bold">{feature.price}</div>
               </CardContent>
             </Card>
@@ -146,18 +180,16 @@ export default function PricingPlans() {
       </div>
 
       <DialogContent
-        className="max-w-md backdrop-blur-sm !rounded-[20px] !border-none !p-6 shadow-lg"
-        overlayClassName="bg-black/50 backdrop-blur-sm"
+        className="max-w-md backdrop-blur-sm !rounded-[20px] !border-none !p-6 shadow-lg bg-black/50"
       >
         <DialogHeader>
-          <DialogTitle className="font-bold text-[24px] font-sora">Order Summary</DialogTitle>
-          <DialogTitle>
+          <DialogTitle className="font-bold text-[24px] font-sora">
+            Order Summary
           </DialogTitle>
         </DialogHeader>
 
         <Card className="border-none shadow-none">
           <CardContent className="space-y-4 px-0">
-
             {/* Price Breakdown */}
             <div className="space-y-2">
               <div className="flex justify-between">
@@ -171,22 +203,31 @@ export default function PricingPlans() {
               </div>
               <Separator className="dark:bg-slate-300" />
               <div className="flex justify-between font-medium">
-                <span className="font-sora font-bold text-[#16423C] dark:text-white">Total</span>
-                <span className="font-sora font-bold text-[#16423C] dark:text-white">$112.25</span>
+                <span className="font-sora font-bold text-[#16423C] dark:text-white">
+                  Total
+                </span>
+                <span className="font-sora font-bold text-[#16423C] dark:text-white">
+                  $112.25
+                </span>
               </div>
             </div>
 
-
-
             <div className="space-y-4">
               <Label htmlFor="bank">Select Payment Method</Label>
-              <Select onValueChange={setSelectedBank} value={selectedBank} className="">
+              <Select onValueChange={setSelectedBank} value={selectedBank}>
                 <SelectTrigger id="bank" className="w-full">
-                  <SelectValue placeholder="Choose a bank" className="dark:bg-[#438179]" />
+                  <SelectValue
+                    placeholder="Choose a bank"
+                    className="dark:bg-[#438179]"
+                  />
                 </SelectTrigger>
-                <SelectContent className="bg-[#E9EFEC]  dark:bg-[#438179] border-none" >
+                <SelectContent className="bg-[#E9EFEC] dark:bg-[#438179] border-none">
                   {banks.map((bank) => (
-                    <SelectItem key={bank.id} value={bank.id} className=" font-sora  dark:hover:bg-[#76c4b9d2] border-none">
+                    <SelectItem
+                      key={bank.id}
+                      value={bank.id}
+                      className="font-sora dark:hover:bg-[#76c4b9d2] border-none"
+                    >
                       {bank.name}
                     </SelectItem>
                   ))}
@@ -195,7 +236,9 @@ export default function PricingPlans() {
 
               {selectedBank && (
                 <div className="space-y-2">
-                  <Label htmlFor="cardNumber">Account Number / Card Number</Label>
+                  <Label htmlFor="cardNumber">
+                    Account Number / Card Number
+                  </Label>
                   <div className="relative">
                     <Input
                       id="cardNumber"
@@ -213,12 +256,14 @@ export default function PricingPlans() {
           </CardContent>
 
           <CardFooter className="px-0">
-            <Button className="w-full bg-[#16423C] dark:bg-[#021815] text-white" disabled={!selectedBank || !cardNumber}>
+            <Button
+              className="w-full bg-[#16423C] dark:bg-[#021815] text-white"
+              disabled={!selectedBank || !cardNumber}
+            >
               Finish
             </Button>
           </CardFooter>
         </Card>
-
       </DialogContent>
     </Dialog>
   );
