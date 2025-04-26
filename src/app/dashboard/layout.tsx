@@ -6,6 +6,7 @@ import { auth } from "@/lib/auth";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SearchProvider } from "@/context/search-context";
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
+import Header from "@/components/layout/header";
 
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -21,6 +22,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
         <AppSidebar />
         <SidebarInset className="ml-3">
           <div className="dark:bg-[#021815] rounded-xl">
+            <Header/>
             {children}
           </div>
         </SidebarInset>
