@@ -27,7 +27,7 @@ export function AppSidebar({ ...props }: AppSidebarProps) {
     <Sidebar
       collapsible="icon"
       {...props}
-      className="dark:bg-[#021815] bg-[#16423C] text-white mx-3 mt-3 rounded-xl"
+      className="  mx-3 mt-3 rounded-xl"
     >
       {state !== "collapsed" ? (
         <div className="flex justify-center items-center">
