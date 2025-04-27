@@ -1,5 +1,17 @@
+// Define the type for POI (Points of Interest) data
+import maplibregl from 'maplibre-gl';
+
+interface POI {
+  icon: string;
+  name?: string;
+  color: string;
+  url?: string;
+  lat: number;
+  lng: number;
+}
+
 // Function to add Points of Interest (POI) layer to the map
-export const addPOILayerToMap = (map, pois) => {
+export const addPOILayerToMap = (map: maplibregl.Map, pois: POI[]): void => {
 
   // Remove existing POI layer and source if present
   if (map.getSource('pois')) {
@@ -12,7 +24,7 @@ export const addPOILayerToMap = (map, pois) => {
     type: 'geojson',
     data: {
       type: 'FeatureCollection',
-      features: pois.map(poi => ({
+      features: pois.map((poi) => ({
         type: 'Feature',
         properties: {
           icon: poi.icon,   // icon name matching the sprite or image
@@ -46,13 +58,13 @@ export const addPOILayerToMap = (map, pois) => {
     },
     paint: {
       'text-color': ['get', 'color'], // Use dynamic color from POI properties
-      'text-halo-color': 'rgba(247, 247, 247, 0.3) ',
+      'text-halo-color': 'rgba(247, 247, 247, 0.3)',
       'text-halo-width': 5,
     },
   });
 
   // Add click event to open the URL in a new tab
-  map.on('click', 'poi-layer', (e) => {
+  map.on('click', 'poi-layer', (e: maplibregl.MapMouseEvent) => {
     const features = map.queryRenderedFeatures(e.point, { layers: ['poi-layer'] });
     if (features.length) {
       const url = features[0].properties.url;

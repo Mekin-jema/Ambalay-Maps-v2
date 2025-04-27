@@ -1,5 +1,52 @@
-export const addTrafficLayer = (map, trafficData) => {
-  const trafficFeatures = trafficData.results.flatMap((item) =>
+import maplibregl from "maplibre-gl";
+
+// Define the structure of traffic data
+interface TrafficLinkPoint {
+  lng: number;
+  lat: number;
+}
+
+interface TrafficLink {
+  points: TrafficLinkPoint[];
+}
+
+interface TrafficFlow {
+  speed: number;
+  jamFactor: number;
+}
+
+interface TrafficItem {
+  currentFlow: TrafficFlow;
+  location: {
+    shape: {
+      links: TrafficLink[];
+    };
+  };
+}
+
+interface TrafficGeoJSONFeature {
+  type: string;
+  geometry: {
+    type: string;
+    coordinates: [number, number][];
+  };
+  properties: {
+    speed: number;
+    jamFactor: number;
+  };
+}
+
+/**
+ * Adds a traffic layer to the map
+ * @param map - The Maplibre GL map instance
+ * @param trafficData - The traffic data in a structured format
+ */
+export const addTrafficLayer = (
+  map: maplibregl.Map,
+  trafficData: TrafficItem[]
+): void => {
+  // Extract and process the traffic data into GeoJSON features
+  const trafficFeatures: TrafficGeoJSONFeature[] = trafficData.flatMap((item) =>
     item.location.shape.links.map((link) => ({
       type: "Feature",
       geometry: {

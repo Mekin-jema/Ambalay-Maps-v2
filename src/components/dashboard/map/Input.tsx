@@ -7,6 +7,7 @@ import { setOpen, setWaypoints } from "../../../Redux/MapSlice"; // Redux action
 import start from "../../../assets/POI/start.svg"; // Icon for start point
 import end from "../../../assets/POI/end.svg"; // Icon for end point
 import { getOptimizedRouteWithStops, getPlaces } from "./api";
+import Image from "next/image";
 
 // Waypoint Type
 interface Waypoint {
@@ -105,9 +106,9 @@ export default function AddressInput({
     <div className="relative p-2 w-full flex items-center gap-1 ml-[30px] group">
       {/* Start or End Icon */}
       {index === 0 ? (
-        <img src={start} alt="start icon" className="w-4 pb-2 pr-1" />
+        <Image src={start} alt="start icon" className="w-4 pb-2 pr-1" />
       ) : (
-        <img src={end} alt="end icon" className="w-4 pb-2 pr-1" />
+        <Image src={end} alt="end icon" className="w-4 pb-2 pr-1" />
       )}
 
       {/* Circular marker and dotted line */}

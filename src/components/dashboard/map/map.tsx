@@ -9,7 +9,6 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import AddressBox from "./inputHandler";
 import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { addUpdatedValhalla } from "./utils/add-updated-valhalla";
-import "../../dashboard/map/Popup/style.css";
 import { fetchPOIs, fetchTrafficData, getDefaultRoute, getRouteInfo } from "./api";
 import { removePOILayerFromMap } from "./utils/remove-poi-layer";
 import { addPOILayerToMap, addTrafficLayer, categories } from "./utils";

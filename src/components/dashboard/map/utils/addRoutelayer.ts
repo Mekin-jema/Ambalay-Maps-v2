@@ -1,10 +1,21 @@
 import maplibregl from "maplibre-gl";
-import getPlaceNameFromCoordinates from "../api/getPlaceFromCoordinates"
+import getPlaceNameFromCoordinates from "../api/getPlaceFromCoordinates";
 
-let markers = []; // Store marker instances
+let markers: maplibregl.Marker[] = []; // Store marker instances
 
-// Helper function to fetch place name
-const getLocation = async (lngLat) => {
+// Define types for waypoint data
+interface Waypoint {
+  placeName?: string;
+  longitude: number;
+  latitude: number;
+}
+
+/**
+ * Helper function to fetch place name
+ * @param lngLat - The lngLat object containing longitude and latitude
+ * @returns - A promise that resolves to the place name or a fallback string
+ */
+const getLocation = async (lngLat: maplibregl.LngLat): Promise<string> => {
   try {
     return await getPlaceNameFromCoordinates(lngLat);
   } catch (error) {
@@ -15,25 +26,25 @@ const getLocation = async (lngLat) => {
 
 /**
  * Adds a route layer with draggable markers styled like Google Maps
- * @param {Object} map - Maplibre GL map instance
- * @param {string} color - Route line color
- * @param {Array} geometry - Array of [lng, lat] coordinates
- * @param {string} name - Unique route layer name
- * @param {number} thickness - Route line thickness
- * @param {Function} setWaypoints - State updater for waypoints
- * @param {Array} waypoints - Array of waypoint objects
- * @param {Function} dispatch - Redux dispatch or state function
+ * @param map - Maplibre GL map instance
+ * @param color - Route line color
+ * @param geometry - Array of [lng, lat] coordinates
+ * @param name - Unique route layer name
+ * @param thickness - Route line thickness
+ * @param setWaypoints - State updater for waypoints
+ * @param waypoints - Array of waypoint objects
+ * @param dispatch - Redux dispatch or state function
  */
 export const addRouteLayer = (
-  map,
-  color,
-  geometry,
-  name,
-  thickness,
-  setWaypoints,
-  waypoints,
-  dispatch
-) => {
+  map: maplibregl.Map,
+  color: string,
+  geometry: [number, number][],
+  name: string,
+  thickness: number,
+  setWaypoints: (waypoints: Waypoint[]) => void,
+  waypoints: Waypoint[],
+  dispatch: Function
+): void => {
   // Clean up previous layers and sources
   if (map.getLayer(name)) map.removeLayer(name);
   if (map.getSource(name)) map.removeSource(name);
@@ -119,7 +130,7 @@ export const addRouteLayer = (
       dispatch(setWaypoints(updatedWaypoints));
 
       // Update the route line with new coordinates
-      const source = map.getSource(name);
+      const source = map.getSource(name) as maplibregl.GeoJSONSource;
       if (source) {
         source.setData({
           type: "Feature",
