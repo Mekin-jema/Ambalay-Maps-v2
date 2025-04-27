@@ -1,3 +1,6 @@
+
+"use client";
+
 import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { useTheme } from 'next-themes'; // Assuming you're using shadcn/ui's ThemeProvider
@@ -10,7 +13,7 @@ interface Series {
 interface Options {
   chart: {
     height: number;
-    type: string;
+    type: 'heatmap';
     foreColor: string;
   };
   plotOptions: {
