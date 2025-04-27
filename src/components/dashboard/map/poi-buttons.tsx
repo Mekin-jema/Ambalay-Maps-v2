@@ -79,7 +79,7 @@ const CategoryScroll: React.FC<CategoryScrollProps> = ({ categories, activeCateg
   };
 
   return (
-    <div className={`fixed ${state === "collapsed" ? "md:w-[800px]" : "md:w-[580px]"} right-3 lg:top-4 top-16 w-full`} ref={containerRef}>
+    <div className={`fixed ${state === "collapsed" ? "md:w-[900px]" : "md:w-[680px]"} right-3 lg:top-16 top-16 w-full`} ref={containerRef}>
       {showLeft && (
         <button
           onClick={() => scroll("left")}
