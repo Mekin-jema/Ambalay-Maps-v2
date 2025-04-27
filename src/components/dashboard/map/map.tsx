@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import AddressBox from "./inputHandler";
-import { SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
+import {  SidebarTrigger, useSidebar } from "@/components/ui/sidebar";
 import { addUpdatedValhalla } from "./utils/add-updated-valhalla";
 import "../../dashboard/map/Popup/style.css";
 import { fetchPOIs, fetchTrafficData, getDefaultRoute, getRouteInfo } from "./api";
@@ -318,7 +318,7 @@ const Map: React.FC = () => {
       </div>
 
       <ToastContainer position="top-center" autoClose={10000} />
-      <div ref={mapContainer} className="absolute top-0 inset-0 bg-white w-full h-screen rounded-[18px]" />
+      <div ref={mapContainer} className="fixed top-0 inset-0 bg-white w-full h-screen rounded-[18px]" />
       <CategoryScroll 
         categories={categories} 
         activeCategory={activeCategory} 
