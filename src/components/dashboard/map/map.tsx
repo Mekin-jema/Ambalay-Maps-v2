@@ -76,6 +76,7 @@ const Map: React.FC = () => {
   const dispatch = useDispatch<typeof import('../../../Redux/Store').store.dispatch>();
   const { waypoints } = useSelector((state: any) => state.map);
   const myAPIKey = process.env.NEXT_PUBLIC_API_KEY || "";
+  console.log("API Key:", myAPIKey);  
 
   // Initialize MapLibre
   useEffect(() => {
