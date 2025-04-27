@@ -1,32 +1,57 @@
+'use client';
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Main } from "@/pages/dashboard/main";
 import { BarChart, LineChart, Line, CartesianGrid, XAxis, YAxis, Legend, Tooltip, Bar } from "recharts";
 import { Download } from "lucide-react";
-import HeatMap from "./heatmap";
+
 // import Header from "@/components/layout/Header";
-import { NavUser } from "@/pages/dashboard/navbar/header-user";
-import { Search } from "@/pages/dashboard/navbar/search";
-import { DarkModeToggle } from "@/pages/dashboard/navbar/toggle-theme";
-import { Header } from "@/pages/dashboard/navbar/main-header";
+// import { NavUser } from "@/pages/dashboard/navbar/header-user";
+// import { Search } from "@/pages/dashboard/navbar/search";
+// import { DarkModeToggle } from "@/pages/dashboard/navbar/toggle-theme";
+// import { Header } from "@/pages/dashboard/navbar/main-header";
+import { Main } from "../utils/main";
+import HeatMap from "./heatmap";
+
+// Define types for the mock data
+interface ApiUsageData {
+  date: string;
+  Geocode: number;
+  Routing: number;
+  Directions: number;
+  Matrix: number;
+}
+
+interface ErrorLog {
+  timestamp: string;
+  requestType: string;
+  errorMessage: string;
+  responseTime: string;
+  detailedLog: string;
+}
+
+interface GeographicData {
+  city: string;
+  calls: number;
+}
 
 // Mock data for API usage metrics
-const apiUsageData = [
+const apiUsageData: ApiUsageData[] = [
   { date: "2024-02-20", Geocode: 50, Routing: 30, Directions: 20, Matrix: 40 },
   { date: "2024-02-21", Geocode: 60, Routing: 35, Directions: 25, Matrix: 45 },
   { date: "2024-02-22", Geocode: 55, Routing: 40, Directions: 30, Matrix: 50 },
   { date: "2024-02-23", Geocode: 70, Routing: 45, Directions: 35, Matrix: 55 },
 ];
 
-const errorLogs = [
+const errorLogs: ErrorLog[] = [
   { timestamp: "2024-02-20 12:30:45", requestType: "GET", errorMessage: "Timeout error", responseTime: "500ms", detailedLog: "Request took too long." },
   { timestamp: "2024-02-21 14:22:30", requestType: "POST", errorMessage: "Invalid JSON format", responseTime: "200ms", detailedLog: "Malformed request body." },
   { timestamp: "2024-02-22 10:05:12", requestType: "GET", errorMessage: "Unauthorized", responseTime: "150ms", detailedLog: "API key missing." },
   { timestamp: "2024-02-23 08:50:55", requestType: "DELETE", errorMessage: "Resource not found", responseTime: "180ms", detailedLog: "Attempt to delete non-existent item." },
 ];
 
-const geographicData = [
+const geographicData: GeographicData[] = [
   { city: "Bole", calls: 50 },
   { city: "Yeka", calls: 40 },
   { city: "Kirkos", calls: 30 },
@@ -34,8 +59,8 @@ const geographicData = [
   { city: "Lideta", calls: 10 },
 ];
 
-const AnalyticsLogs = () => {
-  const [timeRange, setTimeRange] = useState("Daily");
+const AnalyticsLogs: React.FC = () => {
+  const [timeRange, setTimeRange] = useState<string>("Daily");
 
   const handleDownloadReport = () => {
     // Existing download functionality
@@ -43,14 +68,16 @@ const AnalyticsLogs = () => {
 
   return (
     <Main>
-             <Header>
-            {/* <TopNav links={topNav} /> */}
-            <div className="ml-auto flex items-center space-x-4">
-              <Search />
-              <DarkModeToggle />
-              <NavUser />
-            </div>
-          </Header>
+
+      {/* <Header>
+  
+        <div className="ml-auto flex items-center space-x-4">
+          <Search />
+          <DarkModeToggle />
+          <NavUser />
+        </div>
+      </Header> */}
+
       <div className="mb-2 flex items-center justify-between">
         <h2 className="text-xl font-bold">Analytics & Logs</h2>
         <div className="flex space-x-4">

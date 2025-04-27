@@ -2,19 +2,84 @@ import React, { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { useTheme } from 'next-themes'; // Assuming you're using shadcn/ui's ThemeProvider
 
-const generateData = (num, ranges) => {
+interface Series {
+  name: string;
+  data: number[];
+}
+
+interface Options {
+  chart: {
+    height: number;
+    type: string;
+    foreColor: string;
+  };
+  plotOptions: {
+    heatmap: {
+      shadeIntensity: number;
+      radius: number;
+      useFillColorAsStroke: boolean;
+      colorScale: {
+        ranges: {
+          from: number;
+          to: number;
+          name: string;
+          color: string;
+        }[];
+      };
+    };
+  };
+  dataLabels: {
+    enabled: boolean;
+    style: {
+      colors: string[];
+    };
+  };
+  stroke: {
+    width: number;
+    colors: string[];
+  };
+  title: {
+    text: string;
+    style: {
+      color: string;
+    };
+  };
+  xaxis: {
+    categories: string[];
+    labels: {
+      style: {
+        colors: string;
+      };
+    };
+  };
+  yaxis: {
+    labels: {
+      style: {
+        colors: string;
+      };
+    };
+  };
+  tooltip: {
+    theme: string;
+  };
+}
+
+const generateData = (num: number, ranges: { min: number; max: number }): number[] => {
   return Array.from({ length: num }, () =>
     Math.floor(Math.random() * (ranges.max - ranges.min + 1)) + ranges.min
   );
 };
 
-const HeatMap = () => {
+const HeatMap: React.FC = () => {
   const { theme } = useTheme(); // Get the current theme
   const isDarkMode = theme === 'dark'; // Check if dark mode is active
 
   const textColor = isDarkMode ? '#FFFFFF' : '#000000';
 
-  const [state] = useState({
+  const [state] = useState<{
+    series: Series[];
+    options: Options;
+  }>({
     series: [
       { name: 'Bole', data: generateData(9, { min: 0, max: 100 }) },
       { name: 'Piazza', data: generateData(9, { min: 0, max: 100 }) },
