@@ -1,9 +1,18 @@
-import { 
-  FaUtensils, FaHotel, FaShoppingCart, FaGasPump, FaTree, FaHospital, 
+import { FaUtensils, FaHotel, FaShoppingCart, FaGasPump, FaTree, FaHospital, 
   FaUniversity, FaShoppingBag, FaBus, FaDumbbell, FaLandmark, FaBuilding, 
   FaBicycle, FaMosque, FaChurch, FaTheaterMasks, FaBook, FaCocktail, FaCar, 
   FaHome, FaBeer, FaClinicMedical, FaTrain, FaSubway, FaPlane, FaBriefcase 
 } from "react-icons/fa";
+
+// Define types for category
+interface category {
+  name: string;
+  tag: string;
+  icon: string;
+  IconComponent: React.ComponentType;
+  iconColor: string;
+  textColor: string;
+}
 
 const COLORS = {
   FOOD: 'rgba(192, 57, 43, 0.6)',         // Faded dark red
@@ -21,8 +30,7 @@ const COLORS = {
   RESIDENTIAL: 'rgba(124, 179, 66, 0.6)', // Faded light green
 };
 
-
-const categories = [
+const categories: category[] = [
   {
     name: "Restaurants",
     tag: "amenity=restaurant",

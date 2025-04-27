@@ -1,19 +1,3 @@
-/**
- * AddressInput Component
- *
- * This component provides an input field for entering addresses with the following features:
- * - Autocomplete suggestions for addresses using the `getPlaces` API.
- * - Integration with Redux for managing waypoints.
- * - Icons for start and end points.
- * - Ability to clear the input or delete the waypoint.
- *
- * Dependencies:
- * - React hooks for state and lifecycle management.
- * - Redux for state management.
- * - `getPlaces` API for fetching address suggestions.
- * - Icons from `lucide-react` and local assets.
- */
-
 import React, { useState, useEffect } from "react"; // React hooks
 import { X } from "lucide-react"; // Icon for clearing input
 import { useSelector, useDispatch } from "react-redux"; // Redux hooks
@@ -22,26 +6,29 @@ import start from "../../../assets/POI/start.svg"; // Icon for start point
 import end from "../../../assets/POI/end.svg"; // Icon for end point
 import { getOptimizedRouteWithStops, getPlaces } from "./api";
 
-/**
- * AddressInput Component
- *
- * @param {Object} props - Component props.
- * @param {Function} props.setAddress - Function to update the address in the parent component.
- * @param {string} props.placeholder - Placeholder text for the input field.
- * @param {number} props.index - Index of the waypoint in the list.
- * @param {string} props.location - Current location value for the input field.
- * @returns {JSX.Element} - The rendered component.
- */
+// Waypoint Type
+interface Waypoint {
+  placeName: string;
+  longitude: number | null;
+  latitude: number | null;
+}
+
+interface AddressInputProps {
+  setAddress: (address: Waypoint) => void; // Function to update the address in the parent component
+  placeholder: string; // Placeholder text for the input field
+  index: number; // Index of the waypoint in the list
+  location: string; // Current location value for the input field
+}
+
 export default function AddressInput({
   setAddress,
   placeholder,
   index,
   location,
-
-}) {
-  const [suggestions, setSuggestions] = useState([]); // State for address suggestions
-  const [inputValue, setInputValue] = useState(location || ""); // State for input value
-  const { waypoints } = useSelector((state) => state.map); // Waypoints from Redux store
+}: AddressInputProps): React.JSX.Element {
+  const [suggestions, setSuggestions] = useState<any[]>([]); // State for address suggestions
+  const [inputValue, setInputValue] = useState<string>(location || ""); // State for input value
+  const { waypoints } = useSelector((state: { map: { waypoints: Waypoint[] } }) => state.map); // Waypoints from Redux store
   const dispatch = useDispatch(); // Redux dispatch function
 
   // Sync inputValue with the location prop
@@ -53,7 +40,7 @@ export default function AddressInput({
    * Fetch address suggestions based on user input.
    * @param {string} query - The search query entered by the user.
    */
-  const queryPlaces = async (query) => {
+  const queryPlaces = async (query: string) => {
     if (query) {
       const res = await getPlaces(query);
       if (res) {
@@ -65,20 +52,16 @@ export default function AddressInput({
   /**
    * Handle deletion of the current waypoint.
    */
-  const handleDeleteInput = async() => {
+  const handleDeleteInput = async () => {
     const updatedWaypoints = waypoints.filter((waypoint, i) => i !== index);
     dispatch(setWaypoints(updatedWaypoints));
-
-
-          
-    
   };
 
   /**
    * Handle changes in the input field.
    * @param {Object} event - The input change event.
    */
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setInputValue(value);
     queryPlaces(value); // Fetch suggestions
@@ -90,38 +73,32 @@ export default function AddressInput({
    * @param {string} suggestion.place_name - The name of the place.
    * @param {number[]} suggestion.center - The coordinates of the place.
    */
-  const handleSelectSuggestion = (suggestion) => {
-  const {lat,lon,name,display_name} = suggestion;
+  const handleSelectSuggestion = (suggestion: any) => {
+    const { lat, lon, name, display_name } = suggestion;
 
-
-
-  const address = {
-    placeName: display_name,
-    longitude: lon,
-    latitude: lat,
-  };
-  setAddress(address); // Update parent state
-  
+    const address: Waypoint = {
+      placeName: display_name,
+      longitude: lon,
+      latitude: lat,
+    };
+    setAddress(address); // Update parent state
 
     setSuggestions([]);
     setInputValue(display_name);
   };
 
-const handleClearInput = () => {
-  setInputValue("");
-  setSuggestions([]);
-  const updatedWaypoints = [...waypoints];
-  updatedWaypoints[index] = {
-    placeName: "",
-    longitude: null,
-    latitude: null,
+  const handleClearInput = () => {
+    setInputValue("");
+    setSuggestions([]);
+    const updatedWaypoints = [...waypoints];
+    updatedWaypoints[index] = {
+      placeName: "",
+      longitude: null,
+      latitude: null,
+    };
+    dispatch(setWaypoints(updatedWaypoints));
   };
-  dispatch(setWaypoints(updatedWaypoints))
-  addUpdatedValhalla(map, valhallaRoute,waypoints,dispatch,profile);    
 
-
-
-}
   return (
     <div className="relative p-2 w-full flex items-center gap-1 ml-[30px] group">
       {/* Start or End Icon */}
@@ -185,5 +162,4 @@ const handleClearInput = () => {
       )}
     </div>
   );
-  
 }

@@ -1,20 +1,56 @@
+// components/RenderDirectionDetail.tsx
+
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import maplibregl from "maplibre-gl";
+import dynamic from "next/dynamic"; // Dynamically import MapLibre
 import {
   Card,
   CardHeader,
   CardTitle,
   CardDescription,
   CardContent,
-} from "@/components/ui/card";
+} from "@/components/ui/card"; // Assuming you're using these components from your UI lib
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { DIRECTION_ARROWS } from "../constants/TurnByTurnArrows";
-import { Volume2, MousePointerClick } from "lucide-react"; // optional icons if using lucide-react
+import { Volume2 } from "lucide-react"; // optional icons if using lucide-react
 
-const RenderDirectionDetail = ({ map, route }) => {
-  const { waypoints } = useSelector((state) => state.map);
-  const [voices, setVoices] = useState([]);
+// Dynamically import maplibre-gl to avoid server-side rendering issues
+import maplibregl from "maplibre-gl"; 
+import Image from "next/image";
+import { DIRECTION_ARROWS } from "../constants/TurnByTurnArrows";
+
+interface LngLat {
+  lng: number;
+  lat: number;
+}
+
+interface Step {
+  maneuver: {
+    location: [number, number];
+    modifier: string;
+  };
+  name: string;
+  distance: number;
+}
+
+interface Route {
+  duration: number;
+  distance: number;
+  legs: Array<{
+    steps: Step[];
+  }>;
+}
+
+interface RenderDirectionDetailProps {
+  map: maplibregl.Map | null;
+  route: Route | null;
+}
+
+const RenderDirectionDetail: React.FC<RenderDirectionDetailProps> = ({
+  map,
+  route,
+}) => {
+  const { waypoints } = useSelector((state: any) => state.map);
+  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
 
   useEffect(() => {
     const synth = window.speechSynthesis;
@@ -31,7 +67,7 @@ const RenderDirectionDetail = ({ map, route }) => {
     populateVoiceList();
   }, []);
 
-  const speakText = (text) => {
+  const speakText = (text: string) => {
     const synth = window.speechSynthesis;
 
     if (synth.speaking) synth.cancel();
@@ -44,21 +80,21 @@ const RenderDirectionDetail = ({ map, route }) => {
 
   const steps = route?.legs[0]?.steps || [];
 
-  const handleStepClick = (step) => {
+  const handleStepClick = (step: Step) => {
     if (!map) return;
 
     map.flyTo({
-      center: step.maneuver.location,
+      center: { lng: step.maneuver.location[0], lat: step.maneuver.location[1] } as LngLat,
       essential: true,
       zoom: 15,
     });
 
     new maplibregl.Marker({ color: "blue" })
-      .setLngLat(step.maneuver.location)
+      .setLngLat({ lng: step.maneuver.location[0], lat: step.maneuver.location[1] } as LngLat)
       .addTo(map);
 
     new maplibregl.Popup({ closeButton: false, className: "custom-popup" })
-      .setLngLat(step.maneuver.location)
+      .setLngLat({ lng: step.maneuver.location[0], lat: step.maneuver.location[1] } as LngLat)
       .setHTML(`<div class="popup-content"><strong>Active Segment</strong><br/>${step.name}</div>`)
       .setOffset([0, -30])
       .addTo(map);
@@ -68,7 +104,7 @@ const RenderDirectionDetail = ({ map, route }) => {
     );
   };
 
-  const handleSoundClick = (step) => {
+  const handleSoundClick = (step: Step) => {
     speakText(
       `Proceed ${step.distance} meters, then turn ${step.maneuver.modifier} onto ${step.name}.`
     );
@@ -90,7 +126,7 @@ const RenderDirectionDetail = ({ map, route }) => {
               if (!step || step.maneuver?.location?.length < 2) return null;
 
               const isWaypoint = waypoints.some(
-                (wp) =>
+                (wp: { latitude: number; longitude: number }) =>
                   wp.latitude === step.maneuver.location[1] &&
                   wp.longitude === step.maneuver.location[0]
               );
@@ -104,8 +140,8 @@ const RenderDirectionDetail = ({ map, route }) => {
                   onClick={() => handleStepClick(step)}
                 >
                   <div className="flex items-center gap-3">
-                    <img
-                      src={DIRECTION_ARROWS[step.maneuver.modifier]}
+                    <Image
+                      src={DIRECTION_ARROWS[step.maneuver.modifier as keyof typeof DIRECTION_ARROWS] || DIRECTION_ARROWS["right"]}
                       alt="Step icon"
                       className="w-5 h-5"
                     />

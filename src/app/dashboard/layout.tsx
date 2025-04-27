@@ -7,7 +7,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SearchProvider } from "@/context/search-context";
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
 import Header from "@/components/layout/header";
-
+import "./theme.css"
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const session = await auth.api.getSession({ headers: await headers() });
 

@@ -1,24 +1,42 @@
 import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { useSidebar } from "../../../components/ui/sidebar";
+import { useSidebar } from "../../ui/sidebar";
 
-const CategoryScroll = ({ categories, activeCategory, handleCategoryClick, loading }) => {
-  const scrollRef = useRef(null);
-  const containerRef = useRef(null);
-  const [showLeft, setShowLeft] = useState(false);
-  const [showRight, setShowRight] = useState(false);
-  const [visibleCount, setVisibleCount] = useState(5);
+// Define types for category and handleCategoryClick function
+interface category {
+  name: string;
+  tag: string;
+  icon: string;
+  IconComponent: React.ComponentType;
+  iconColor: string;
+  textColor: string;
+}
+interface CategoryScrollProps {
+  categories: category[];
+  activeCategory: string | null;
+  handleCategoryClick: (category: category) => void;
+  // loading: boolean;
+}
+
+const CategoryScroll: React.FC<CategoryScrollProps> = ({ categories, activeCategory, handleCategoryClick }) => {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [showLeft, setShowLeft] = useState<boolean>(false);
+  const [showRight, setShowRight] = useState<boolean>(false);
+  const [visibleCount, setVisibleCount] = useState<number>(5);
   const { state } = useSidebar(); // Get sidebar state (expanded or collapsed)
 
+  // Function to calculate visible items in the scrollable area
   const calculateVisibleItems = () => {
     if (containerRef.current && scrollRef.current?.firstChild) {
       const containerWidth = containerRef.current.clientWidth;
-      const itemWidth = scrollRef.current.firstChild.clientWidth + 8;
+      const itemWidth = (scrollRef.current.firstChild as HTMLElement).clientWidth + 8; // add padding
       const count = Math.floor(containerWidth / itemWidth);
-      setVisibleCount(Math.max(3, count)); // Ensure at least 3 items
+      setVisibleCount(Math.max(3, count)); // Ensure at least 3 items are visible
     }
   };
 
+  // Function to check whether to show left or right scroll buttons
   const checkScroll = () => {
     if (scrollRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
@@ -27,6 +45,7 @@ const CategoryScroll = ({ categories, activeCategory, handleCategoryClick, loadi
     }
   };
 
+  // Set up event listeners on window resize and scroll
   useEffect(() => {
     calculateVisibleItems();
     setTimeout(checkScroll, 100);
@@ -44,7 +63,8 @@ const CategoryScroll = ({ categories, activeCategory, handleCategoryClick, loadi
     return () => ref.removeEventListener("scroll", checkScroll);
   }, [categories, visibleCount]);
 
-  const scroll = (direction) => {
+  // Function to scroll the categories horizontally
+  const scroll = (direction: "left" | "right") => {
     if (scrollRef.current) {
       const { scrollLeft, clientWidth } = scrollRef.current;
       const scrollAmount = clientWidth * 0.5;
@@ -56,11 +76,11 @@ const CategoryScroll = ({ categories, activeCategory, handleCategoryClick, loadi
   };
 
   return (
-    <div className={`fixed ${state === "collapsed" ? "  md:w-[800px]" : "md:w-[580px]"} right-3 lg:top-4 top-16 w-full `} ref={containerRef}>
+    <div className={`fixed ${state === "collapsed" ? "md:w-[800px]" : "md:w-[580px]"} right-3 lg:top-4 top-16 w-full`} ref={containerRef}>
       {showLeft && (
         <button
           onClick={() => scroll("left")}
-          className="absolute left-0 top-1/2 trafnsform -translate-y-1/2 bg-white text-black shadow-lg p-2 rounded-full z-20 flex items-center justify-center h-10 w-10"
+          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white text-black shadow-lg p-2 rounded-full z-20 flex items-center justify-center h-10 w-10"
           aria-label="Scroll left"
         >
           <ChevronLeft size={20} />
@@ -79,9 +99,9 @@ const CategoryScroll = ({ categories, activeCategory, handleCategoryClick, loadi
             className={`flex-shrink-0 flex items-center px-3 py-1 border border-[#00432F] space-x-2 rounded-full ${
               activeCategory === category.name ? "bg-[#00432F] text-white" : "bg-white text-black"
             }`}
-            disabled={loading}
+            // disabled={loading}
           >
-            <category.IconComponent size={16} />
+            <category.IconComponent  />
             <span className="text-sm">{category.name}</span>
           </button>
         ))}

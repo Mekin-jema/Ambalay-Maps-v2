@@ -1,4 +1,10 @@
-export const variablelStyles = [
+interface VariableStyle {
+  name: string;
+  url: string;
+  thumbnail: string; // Path to image (string)
+}
+
+export const variablelStyles:VariableStyle[] = [
     {  "name": "OSM Carto",
       "url": "https://maps.geoapify.com/v1/styles/osm-carto/style.json",
       "thumbnail": "https://apidocs.geoapify.com/assets/img/maps/map-carto.png"

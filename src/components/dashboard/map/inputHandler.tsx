@@ -1,42 +1,58 @@
+"use client";
+
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { setWaypoints } from "../../../Redux/MapSlice";
 import AddressInput from "./Input";
-import RenderDirectionDetail from "./drectionDetail";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { Car, Bus, MapPin, X, Bike, Plus } from "lucide-react";
 import { MdDirections, MdDirectionsCarFilled, MdDirectionsTransitFilled, MdDirectionsWalk, MdOutlineAirplanemodeActive } from "react-icons/md";
+import { RootState } from "@/Redux/Store";
+import RenderDirectionDetail from "./drectionDetail";
 
-const AddressBox = ({ route, setToggleGeocoding, profile, setProfile}) => {
+// Types for Waypoint and Props
+interface Waypoint {
+  placeName: string;
+  longitude: number | null;
+  latitude: number | null;
+}
+
+interface AddressBoxProps {
+  route: any; // Ideally, replace 'any' with your Route type
+  setToggleGeocoding: (value: boolean) => void;
+  profile: string;
+  setProfile: (profile: string) => void;
+ map:maplibregl.Map | null;
+}
+
+const AddressBox: React.FC<AddressBoxProps> = ({ route, setToggleGeocoding, profile, setProfile, map }) => {
   const dispatch = useDispatch();
-  const { waypoints } = useSelector((state) => state.map);
+  const { waypoints } = useSelector((state: RootState) => state.map);
   const controls = useAnimation();
 
   useEffect(() => {
-    // Start with the infinite pulse animation
     controls.start({
       scale: [1, 1.02, 1],
       opacity: [0.8, 1, 0.8],
       transition: {
         duration: 1.5,
         repeat: Infinity,
-        ease: "easeInOut"
-      }
+        ease: "easeInOut",
+      },
     });
 
-    // After 2 seconds, transition to the final state
     const timer = setTimeout(() => {
       controls.start({
         scale: 1,
         opacity: 1,
         transition: {
           duration: 0.5,
-          ease: "easeOut"
-        }
+          ease: "easeOut",
+        },
       });
     }, 2000);
 
@@ -57,7 +73,7 @@ const AddressBox = ({ route, setToggleGeocoding, profile, setProfile}) => {
   };
 
   // Update a specific waypoint
-  const updateWaypoint = (index, address) => {
+  const updateWaypoint = (index: number, address: Waypoint) => {
     const updatedWaypoints = [...waypoints];
     updatedWaypoints[index] = address;
     dispatch(setWaypoints(updatedWaypoints));
@@ -71,83 +87,64 @@ const AddressBox = ({ route, setToggleGeocoding, profile, setProfile}) => {
         exit={{ x: -500, opacity: 0 }}
         transition={{ duration: 0.5, ease: "easeInOut" }}
       >
-        <motion.div
-          animate={controls}
-          className="h-full"
-        >
+        <motion.div animate={controls} className="h-full">
           <CardContent className="p-0">
-            <div className="flex items-center justify-between p-2 w-full font-sora ">
-
+            <div className="flex items-center justify-between p-2 w-full font-sora">
+              {/* Transport Profile Buttons */}
               <div className="flex items-center p-2 w-[300px] gap-2 ml-[5px] h-full">
                 <button
-             
                   title="Car"
-                  className={`p-3 rounded-full  transition-all duration-200  ${profile === "auto"
-                      ? "text-[#A91CD8] "
-                      : " hover:text-[#b8a5be]"
-                    }`}
+                  className={`p-3 rounded-full transition-all duration-200 ${profile === "auto" ? "text-[#A91CD8]" : "hover:text-[#b8a5be]"}`}
                   onClick={() => setProfile("auto")}
                 >
                   <MdDirections className="text-2xl" />
                 </button>
 
                 <button
-             
                   title="Motor Scooter"
-                  className={`p-3 rounded-full transition-all duration-200 ${profile === "motor_scooter"
-                      ? "  text-[#A91CD8] "
-                      : " hover:text-[#b8a5be]"
-                    }`}
+                  className={`p-3 rounded-full transition-all duration-200 ${profile === "motor_scooter" ? "text-[#A91CD8]" : "hover:text-[#b8a5be]"}`}
                   onClick={() => setProfile("motor_scooter")}
                 >
-                  <MdDirectionsCarFilled  className="text-2xl"/>
+                  <MdDirectionsCarFilled className="text-2xl" />
                 </button>
 
                 <button
-             
                   title="Pedestrian"
-                  className={`p-3 rounded-full  transition-all duration-200 ${profile === "pedestrian"
-                      ? "  text-[#A91CD8] "
-                      : " hover:text-[#b8a5be]"
-                    }`}
+                  className={`p-3 rounded-full transition-all duration-200 ${profile === "pedestrian" ? "text-[#A91CD8]" : "hover:text-[#b8a5be]"}`}
                   onClick={() => setProfile("pedestrian")}
                 >
                   <MdDirectionsWalk className="text-2xl" />
                 </button>
 
                 <button
-             
                   title="Bicycle"
-                  className={`p-3 rounded-full  transition-all duration-200 ${profile === "bicycle"
-                      ? "  text-[#A91CD8] "
-                      : " hover:text-[#b8a5be]"
-                    }`}
+                  className={`p-3 rounded-full transition-all duration-200 ${profile === "bicycle" ? "text-[#A91CD8]" : "hover:text-[#b8a5be]"}`}
                   onClick={() => setProfile("bicycle")}
                 >
                   <Bike className="text-2xl" />
                 </button>
 
                 <button
-             
                   title="Multimodal"
-                  className={`p-3 rounded-full  transition-all duration-200 ${profile === "multimodal"
-                      ? "  text-[#A91CD8] "
-                      : " hover:text-[#b8a5be]"
-                    }`}
+                  className={`p-3 rounded-full transition-all duration-200 ${profile === "multimodal" ? "text-[#A91CD8]" : "hover:text-[#b8a5be]"}`}
                   onClick={() => setProfile("multimodal")}
                 >
                   <MdOutlineAirplanemodeActive className="text-2xl" />
                 </button>
               </div>
 
-
-              <button  title="Close" onClick={() => setToggleGeocoding(false)}  className={`p-3 rounded-full  transition-all duration-200 
-                   hover:text-[#b8a5be]
-                  `}>
+              {/* Close Button */}
+              <button
+                title="Close"
+                onClick={() => setToggleGeocoding(false)}
+                className="p-3 rounded-full transition-all duration-200 hover:text-[#b8a5be]"
+              >
                 <X width={25} height={25} />
               </button>
             </div>
-            {waypoints.map((waypoint, index) => (
+
+            {/* Waypoints Input Fields */}
+            {waypoints.map((waypoint: Waypoint, index: number) => (
               <motion.div
                 key={index}
                 className="flex items-center gap-2 w-full"
@@ -157,16 +154,16 @@ const AddressBox = ({ route, setToggleGeocoding, profile, setProfile}) => {
               >
                 <AddressInput
                   location={waypoint.placeName}
-             
                   index={index}
-                  waypoint={waypoint}
-                  setAddress={(address) => updateWaypoint(index, address)}
+                  // waypoint={waypoint}
+                  setAddress={(address: Waypoint) => updateWaypoint(index, address)}
                   placeholder={index === 0 ? "Starting Address" : `Destination Address ${index}`}
-                  className="w-full p-0 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  // className="w-full p-0 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </motion.div>
             ))}
 
+            {/* Add Destination Button */}
             {waypoints.length >= 2 && waypoints[1].longitude !== null && waypoints[0].latitude !== null && (
               <motion.div
                 className="flex items-center gap-3 ml-8"
@@ -174,10 +171,9 @@ const AddressBox = ({ route, setToggleGeocoding, profile, setProfile}) => {
                 animate={{ opacity: 1 }}
                 transition={{ delay: waypoints.length * 0.1 + 0.5 }}
               >
-                < button
-                 
+                <button
                   title="Add Destination"
-                  className="rounded-full border-[2px] border-[#A91CD8] dark:border-white   flex items-center justify-center"
+                  className="rounded-full border-[2px] border-[#A91CD8] dark:border-white flex items-center justify-center"
                   onClick={addWaypoint}
                 >
                   <Plus className="w-5 h-5 text-[#A91CD8]" />
@@ -189,7 +185,7 @@ const AddressBox = ({ route, setToggleGeocoding, profile, setProfile}) => {
 
           <CardFooter className="p-0 w-full">
             <div className="w-full">
-              <RenderDirectionDetail route={route} />
+              <RenderDirectionDetail route={route } map={map} />
             </div>
           </CardFooter>
         </motion.div>

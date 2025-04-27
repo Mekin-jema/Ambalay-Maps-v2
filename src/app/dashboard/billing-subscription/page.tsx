@@ -1,10 +1,13 @@
+import BillingSubscription from '@/components/dashboard/billing-subscription/billing-subscription'
 import React from 'react'
 
 type Props = {}
 
 const page = (props: Props) => {
   return (
-    <div>page</div>
+    <div>
+      <BillingSubscription />
+    </div>
   )
 }
 

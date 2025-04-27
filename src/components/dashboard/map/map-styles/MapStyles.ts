@@ -1,4 +1,39 @@
-export const style={
+import { Metadata } from "next";
+
+
+export interface MaplibreStyle {
+  version: number;
+  name: string;
+  metadata: {
+    "mapbox:type"?: string;
+    "mapbox:groups"?: Record<string, { collapsed: boolean; name: string }>;
+    "mapbox:autocomposite"?: boolean;
+    "openmaptiles:version"?: string;
+    "openmaptiles:mapbox:owner"?: string;
+    "openmaptiles:mapbox:source:url"?: string;
+  };
+  sources: Record<string, {
+    type: string;
+    url: string;
+  }>;
+  sprite?: string;
+  glyphs?: string;
+  layers: Array<{
+    id: string;
+    type: string;
+    metadata?: Record<string, any>;
+    source?: string;
+    "source-layer"?: string;
+    filter?: any[];
+    layout?: Record<string, any>;
+    paint?: Record<string, any>;
+    minzoom?: number;
+    maxzoom?: number;
+  }>;
+  id?: string;
+}
+
+export const style:MaplibreStyle={
   "version": 8,
   "name": "Google Maps Clone",
   "metadata": {

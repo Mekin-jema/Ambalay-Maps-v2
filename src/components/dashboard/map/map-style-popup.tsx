@@ -1,21 +1,38 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
-export default function MapStyles({ variablelStyles, selectedStyle, handleStyleChange }) {
-  const [hoveredStyle, setHoveredStyle] = useState(null);
+// Define types for the props
+interface Style {
+  name: string;
+  url: string;
+  thumbnail: string; // Path to image (string)// Path to image (string)
+}
+
+interface MapStylesProps {
+  variablelStyles: Style[]; // Array of style objects
+  selectedStyle: string; // The name of the selected style
+  handleStyleChange: (style: Style) => void; // Function to handle style change
+}
+
+const MapStyles: React.FC<MapStylesProps> = ({
+  variablelStyles,
+  selectedStyle,
+  handleStyleChange,
+}) => {
+  const [hoveredStyle, setHoveredStyle] = useState<string | null>(null);
 
   return (
-    <div className="fixed bottom-0 right-16 w-auto z-10  shadow-lg rounded-lg p-2">
+    <div className="fixed bottom-0 right-16 w-auto z-10 shadow-lg rounded-lg p-2">
       <div className="flex overflow-x-auto space-x-2 p-2 scrollbar-hide rounded-xl bg-white shadow-lg">
         {variablelStyles.map((style) => (
           <div 
             key={style.name} 
-            className="relative flex-shrink-0 rounded-xl bg-white  transition-all duration-200 ease-in-out hover:shadow-lg right-0"
+            className="relative flex-shrink-0 rounded-xl bg-white transition-all duration-200 ease-in-out hover:shadow-lg right-0"
             onMouseEnter={() => setHoveredStyle(style.name)}
             onMouseLeave={() => setHoveredStyle(null)}
           >
             <img
-              src={style.thumbnail}
+              src={style.thumbnail} // Path to image
               alt={style.name}
               title={style.name}
               onClick={() => handleStyleChange(style)}
@@ -36,10 +53,11 @@ export default function MapStyles({ variablelStyles, selectedStyle, handleStyleC
                 {style.name}
               </motion.div>
             )}
-
           </div>
         ))}
       </div>
     </div>
   );
 }
+
+export default MapStyles;
