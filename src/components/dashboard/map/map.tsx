@@ -18,7 +18,6 @@ import MapStyles from "./map-style-popup";
 import { variablelStyles } from "./map-styles/variable-style";
 import GeocodingInput from "./single-input";
 import CategoryScroll from "./poi-buttons";
-import { style } from "./map-styles/MapStyles";
 
 // Define TypeScript interfaces
 interface Waypoint {
