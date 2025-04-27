@@ -1,12 +1,13 @@
-"use client"
 
+
+import Map from '@/components/dashboard/map/map'
 import React from 'react'
 
-type Props = {}
 
-const page = (props: Props) => {
+
+const page = () => {
   return (
-    <div>page</div>
+    <div><Map/></div>
   )
 }
 

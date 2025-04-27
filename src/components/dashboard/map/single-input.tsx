@@ -1,3 +1,5 @@
+
+"use client";
 import React, { useState, ChangeEvent } from "react";
 import { MdDirections } from "react-icons/md"; // Google Maps-like icon
 import getPlaces from "./api/getPlaces";

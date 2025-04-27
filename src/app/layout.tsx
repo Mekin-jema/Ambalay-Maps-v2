@@ -1,3 +1,5 @@
+"use client";
+
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
@@ -7,6 +9,9 @@ import NextTopLoader from 'nextjs-toploader';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import ThemeProvider from "@/components/layout/theme-provider";
 import Providers from "@/components/layout/providers";
+import { Provider } from "react-redux";
+import { persistor, store } from "@/Redux/Store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export default function RootLayout({children, activeThemeValue}: Readonly<{children: React.ReactNode, activeThemeValue: string}>) {
   return (
@@ -21,12 +26,17 @@ export default function RootLayout({children, activeThemeValue}: Readonly<{child
           enableSystem
           disableTransitionOnChange
         >
+      <Provider store={store}>
+
+      <PersistGate loading={null} persistor={persistor}>
           <Providers activeThemeValue={activeThemeValue || "light"}>
           {/*   {children} */}
 
           {children}
           </Providers>
           <Toaster />
+      </PersistGate>
+      </Provider>
         </ThemeProvider>
       </NuqsAdapter>
       </body>

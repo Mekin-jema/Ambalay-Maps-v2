@@ -1,8 +1,8 @@
 // components/RenderDirectionDetail.tsx
 
+"use client";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import dynamic from "next/dynamic"; // Dynamically import MapLibre
 import {
   Card,
   CardHeader,

@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { ToastContainer } from "react-toastify";
@@ -72,7 +74,7 @@ const Map: React.FC = () => {
   const [selectedStyle, setSelectedStyle] = useState<string>(variablelStyles[0].name);
 
   const { state } = useSidebar();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<typeof import('../../../Redux/Store').store.dispatch>();
   const { waypoints } = useSelector((state: any) => state.map);
   const myAPIKey = process.env.NEXT_PUBLIC_API_KEY || "";
 

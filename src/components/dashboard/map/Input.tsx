@@ -1,3 +1,5 @@
+
+"use client";
 import React, { useState, useEffect } from "react"; // React hooks
 import { X } from "lucide-react"; // Icon for clearing input
 import { useSelector, useDispatch } from "react-redux"; // Redux hooks
