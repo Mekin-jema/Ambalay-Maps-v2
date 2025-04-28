@@ -1,0 +1,58 @@
+{
+  "version": 8,
+  "id": "streets-v2",
+  "name": "Streets",
+  "sources": {
+    "maptiler_planet": {
+      "url": "https://api.maptiler.com/tiles/v3/tiles.json?key=u9EnL0tM9ZS24uoyFpL7",
+      "type": "vector"
+    }
+  },
+  "layers": [
+    {
+      "id": "Background",
+      "type": "background",
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "background-color": {
+          "stops": [
+            [6, "hsl(47,79%,94%)"],
+            [14, "hsl(42,49%,93%)"]
+          ]
+        }
+      }
+    },
+    {
+      "id": "Meadow",
+      "type": "fill",
+      "source": "maptiler_planet",
+      "source-layer": "globallandcover",
+      "maxzoom": 8,
+      "layout": {
+        "visibility": "visible"
+      },
+      "paint": {
+        "fill-antialias": true,
+        "fill-color": "hsl(75,51%,85%)",
+        "fill-opacity": {
+          "stops": [
+            [0, 1],
+            [8, 0.1]
+          ]
+        }
+      },
+      "filter": ["==", "class", "grass"]
+    }
+  
+  ],
+  "metadata": {
+    "maptiler:copyright": "You are licensed to use the style or its derivate for serving map tiles exclusively with MapTiler Server or MapTiler Cloud and in accordance with their licenses and terms. If you plan to use the style in a different way, contact us at sales@maptiler.com."
+  },
+  "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=u9EnL0tM9ZS24uoyFpL7",
+  "bearing": 0,
+  "pitch": 0,
+  "center": [0, 0],
+  "zoom": 1
+}
