@@ -8,10 +8,10 @@ const inter = Inter({ subsets: ["latin"] });
 import NextTopLoader from "nextjs-toploader";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import ThemeProvider from "@/components/layout/theme-provider";
-import Providers from "@/components/layout/providers";
 import { Provider } from "react-redux";
 import { persistor, store } from "@/Redux/Store";
 import { PersistGate } from "redux-persist/integration/react";
+import Providers from "@/components/layout/providers";
 
 export default function RootLayout({
   children,
@@ -30,11 +30,11 @@ export default function RootLayout({
           >
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
-                {/* <Providers activeThemeValue={activeThemeValue || "light"}> */}
-                {/*   {children} */}
+                <Providers activeThemeValue={activeThemeValue || "light"}>
+                  {/*   {children} */}
 
-                {children}
-                {/* </Providers> */}
+                  {children}
+                </Providers>
                 <Toaster />
               </PersistGate>
             </Provider>
