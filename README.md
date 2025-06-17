@@ -58,8 +58,11 @@ yarn install
 Create a `.env.local` file in the root of the project:
 
 ```env
-VITE_MAP_API_KEY=your_maplibre_key
-VITE_GEOAPIFY_KEY=your_geoapify_key
+# Map tile and style API key from MapTiler (used by MapLibre)
+VITE_MAP_API_KEY=your_maptiler_api_key
+
+#  Different map styles' API key from Geoapify
+NEXT_PUBLIC_API_KEY=your_geoapify_api_key
 ```
 
 Replace with your actual API keys from [Maptiler/MapLibre](https://maptiler.com/maps/) and [Geoapify](https://www.geoapify.com/).
@@ -75,30 +78,6 @@ npm run dev
 Visit: [http://localhost:3000](http://localhost:3000)
 
 ---
-
-## 🧩 Usage Example
-
-In `pages/index.tsx`:
-
-```tsx
-import dynamic from "next/dynamic";
-
-const Map = dynamic(() => import("@/components/map"), { ssr: false });
-
-export default function Home() {
-  return (
-    <main className="w-full h-screen">
-      <Map />
-    </main>
-  );
-}
-```
-
----
-
-## ⚙️ Configuration & Customization
-
-### 🔘 Map Styles
 
 Edit `map-styles/variable-style.ts`:
 
@@ -119,48 +98,11 @@ export const variableStyles = [
 
 Edit `utils/category.ts`:
 
-```ts
-export const categories = [
-  {
-    name: "Restaurants",
-    tag: "amenity=restaurant",
-    icon: "restaurant",
-    textColor: "#FF6D00",
-  },
-  {
-    name: "Hospitals",
-    tag: "amenity=hospital",
-    icon: "hospital",
-    textColor: "#D32F2F",
-  },
-];
-```
-
----
-
 ## 📡 APIs Used
 
 - **Routing**: [Valhalla](https://github.com/valhalla/valhalla), [OSRM](http://project-osrm.org/)
 - **Geocoding**: [Geoapify](https://www.geoapify.com/), [Nominatim](https://nominatim.org/)
 - **POIs**: [OpenStreetMap Overpass API](https://overpass-api.de/)
-
----
-
-## 🛠️ Troubleshooting
-
-| Issue                                                | Solution                                                 |
-| ---------------------------------------------------- | -------------------------------------------------------- |
-| `"Source cannot be removed while layer is using it"` | Always remove layers before their sources                |
-| API Key errors                                       | Check `.env.local` and API usage limits                  |
-| Missing icons                                        | Custom icons are handled gracefully using fallback logic |
-
----
-
-## 📈 Performance Tips
-
-- Debounce routing and geocoding API calls
-- Use `React.memo` for static subcomponents
-- Clean up listeners and sources on component unmount
 
 ---
 
