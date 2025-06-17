@@ -121,35 +121,7 @@ Edit `utils/category.ts`:
 
 ## 📸 Screenshots
 
-> _Add screenshots of routing, POI popups, 3D map mode, etc._
+![alt text](image.png)
+![alt text](image-1.png)
 
 ---
-
-## 🪪 License
-
-MIT © 2025 [Mekin Jemal](https://github.com/Mekin-jema)
-
----
-
-## 🤝 Contributing
-
-Pull requests, feature suggestions, and improvements are welcome!
-
----
-
-## 📬 Contact
-
-Have questions or ideas?
-📧 [mekinjemal999@gmail.com](mailto:mekinjemal999@gmail.com)
-🔗 [LinkedIn](https://linkedin.com/in/mekin-jemal)
-
-```
-
----
-
-Would you like me to:
-- Push this directly to your GitHub as a PR or file?
-- Add sections like *backend integration*, *deployment to Vercel*, or *screenshots*?
-
-Let me know how far you want to take it.
-```
