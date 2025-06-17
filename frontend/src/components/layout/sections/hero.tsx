@@ -17,22 +17,20 @@ export const HeroSection = () => {
             <span className="mr-2 text-primary">
               <Badge>New</Badge>
             </span>
-            <span> SmartDrainX is live! </span>
+            <span> Ambalay-Maps is live! </span>
           </Badge>
 
           <div className="max-w-screen-md mx-auto text-center text-4xl md:text-6xl font-bold">
             <h1>
               Explore smarter with
               <span className="text-transparent px-2 bg-gradient-to-r from-[#4A90E2] to-primary bg-clip-text">
-                SmartDrainX
+                Ambalay-Maps
               </span>
             </h1>
           </div>
 
           <p className="max-w-screen-sm mx-auto text-xl justify-start text-muted-foreground">
-            {`Harness the power of real-time intelligence with SmartDrainX.
-            By combining IoT sensors and geospatial data, our system monitors sewage levels and toxic gases, ensuring timely alerts and smarter maintenance routes.
-            Empowering urban planners, sanitation teams, and emergency responders, SmartDrainX supports Ethiopia’s smart city transformation—driving cleaner, safer communities with precision, scalability, and next-gen efficiency.
+            {`Ambalay Maps v2 is a powerful, feature-rich, interactive mapping application built with Next.js, TypeScript, MapLibre GL JS, and Redux Toolkit. It supports multi-waypoint routing, POI discovery, elevation profiling, dynamic map styles, and a beautiful user experience
 
 .`}
           </p>

@@ -13,7 +13,8 @@ import { TestimonialSection } from "@/components/layout/sections/testimonial";
 
 export default function Home() {
   return (
-    <><Navbar/>
+    <>
+      <Navbar />
       <HeroSection />
       <SponsorsSection />
       <BenefitsSection />

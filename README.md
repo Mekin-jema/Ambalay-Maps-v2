@@ -1,6 +1,3 @@
-### ✅ `README.md` for [`Ambalay-Maps-v2`](https://github.com/Mekin-jema/Ambalay-Maps-v2)
-
-
 # 🗺️ Ambalay Maps v2
 
 **Ambalay Maps v2** is a powerful, feature-rich, interactive mapping application built with **Next.js**, **TypeScript**, **MapLibre GL JS**, and **Redux Toolkit**. It supports multi-waypoint routing, POI discovery, elevation profiling, dynamic map styles, and a beautiful user experience.
@@ -12,22 +9,26 @@
 ## ✨ Features
 
 ### 🧭 Dynamic Routing
+
 - Draggable multi-waypoint routing
 - Supports car, pedestrian, bicycle profiles
 - Turn-by-turn instructions
 - Elevation profiling with visual charts
 
 ### 📍 POI Discovery
+
 - Search by categories (e.g., Restaurants, Hospitals)
 - OpenStreetMap Overpass API integration
 - Interactive markers with detailed popups
 
 ### 🗺️ Map Styling
+
 - Multiple base map styles
 - Light/Dark mode support
 - Satellite and 3D toggle
 
 ### 👤 UX Enhancements
+
 - User geolocation tracking
 - Toast notifications
 - Smooth UI animations
@@ -42,7 +43,7 @@
 ```bash
 git clone https://github.com/Mekin-jema/Ambalay-Maps-v2.git
 cd Ambalay-Maps-v2
-````
+```
 
 ### 2. Install dependencies
 
@@ -80,9 +81,9 @@ Visit: [http://localhost:3000](http://localhost:3000)
 In `pages/index.tsx`:
 
 ```tsx
-import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 
-const Map = dynamic(() => import('@/components/map'), { ssr: false });
+const Map = dynamic(() => import("@/components/map"), { ssr: false });
 
 export default function Home() {
   return (
@@ -110,7 +111,7 @@ export const variableStyles = [
   {
     name: "Dark",
     url: "https://tiles.stadiamaps.com/styles/alidade_dark.json",
-  }
+  },
 ];
 ```
 
@@ -139,9 +140,9 @@ export const categories = [
 
 ## 📡 APIs Used
 
-* **Routing**: [Valhalla](https://github.com/valhalla/valhalla), [OSRM](http://project-osrm.org/)
-* **Geocoding**: [Geoapify](https://www.geoapify.com/), [Nominatim](https://nominatim.org/)
-* **POIs**: [OpenStreetMap Overpass API](https://overpass-api.de/)
+- **Routing**: [Valhalla](https://github.com/valhalla/valhalla), [OSRM](http://project-osrm.org/)
+- **Geocoding**: [Geoapify](https://www.geoapify.com/), [Nominatim](https://nominatim.org/)
+- **POIs**: [OpenStreetMap Overpass API](https://overpass-api.de/)
 
 ---
 
@@ -157,28 +158,28 @@ export const categories = [
 
 ## 📈 Performance Tips
 
-* Debounce routing and geocoding API calls
-* Use `React.memo` for static subcomponents
-* Clean up listeners and sources on component unmount
+- Debounce routing and geocoding API calls
+- Use `React.memo` for static subcomponents
+- Clean up listeners and sources on component unmount
 
 ---
 
 ## 🧰 Tech Stack
 
-* [Next.js](https://nextjs.org/)
-* [TypeScript](https://www.typescriptlang.org/)
-* [MapLibre GL JS](https://maplibre.org/)
-* [Redux Toolkit](https://redux-toolkit.js.org/)
-* [React Toastify](https://fkhadra.github.io/react-toastify/)
-* [Recharts](https://recharts.org/)
-* [Framer Motion](https://www.framer.com/motion/)
-* [Lucide Icons](https://lucide.dev/)
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [MapLibre GL JS](https://maplibre.org/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Toastify](https://fkhadra.github.io/react-toastify/)
+- [Recharts](https://recharts.org/)
+- [Framer Motion](https://www.framer.com/motion/)
+- [Lucide Icons](https://lucide.dev/)
 
 ---
 
 ## 📸 Screenshots
 
-> *Add screenshots of routing, POI popups, 3D map mode, etc.*
+> _Add screenshots of routing, POI popups, 3D map mode, etc._
 
 ---
 
