@@ -1,10 +1,6 @@
-Great — based on your provided repo URL [`https://github.com/Mekin-jema/Ambalay-Maps-v2.git`](https://github.com/Mekin-jema/Ambalay-Maps-v2.git), here's a tailored and complete `README.md` file for **Ambalay Maps v2**, assuming it's built with **Next.js**, **TypeScript**, **MapLibre GL**, and **Redux Toolkit**.
-
----
-
 ### ✅ `README.md` for [`Ambalay-Maps-v2`](https://github.com/Mekin-jema/Ambalay-Maps-v2)
 
-````markdown
+
 # 🗺️ Ambalay Maps v2
 
 **Ambalay Maps v2** is a powerful, feature-rich, interactive mapping application built with **Next.js**, **TypeScript**, **MapLibre GL JS**, and **Redux Toolkit**. It supports multi-waypoint routing, POI discovery, elevation profiling, dynamic map styles, and a beautiful user experience.
