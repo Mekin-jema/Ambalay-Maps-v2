@@ -23,17 +23,20 @@ import {
 } from "@/components/ui/form";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import { redirect, useRouter, useSearchParams } from "next/navigation";
 import { InputField } from "@/components/Auth/FormFields";
 import {
   ResetPasswordFormValues,
   resetPasswordSchema,
 } from "@/lib/schema/resetPasswordSchema";
+import { useAuthStore } from "@/store/useAuthStore";
 // import { authClient } from "@/lib/auth-client";
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
+
+  const { resetPassword, loading } = useAuthStore();
   if (!token) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-background/80 p-4">
@@ -62,31 +65,16 @@ const ResetPassword = () => {
     },
   });
 
-  const [pending, setPending] = useState(false);
-  const router = useRouter();
-  const { toast } = useToast();
+
 
   const onSubmit = async (data: ResetPasswordFormValues) => {
-    setPending(true);
-    // const { error } = await authClient.resetPassword({
-    //   newPassword: data.password,
-    //   token,
-    // });
-    // if (error) {
-    //   toast({
-    //     title: "Error",
-    //     description: error.message,
-    //     variant: "destructive",
-    //   });
-    // } else {
-    //   toast({
-    //     title: "Success",
-    //     description:
-    //       "Your password has been reset successfully. login to continue",
-    //   });
-    //   router.push("/login");
-    // }
-    setPending(false);
+    try {
+      resetPassword(data.password, token);
+      form.reset();
+      redirect("/auth/login");
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -138,8 +126,8 @@ const ResetPassword = () => {
                   showPasswordToggle={true}
                 />
 
-                <Button type="submit" className="w-full" disabled={pending}>
-                  {pending ? (
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin mr-2" />
                       Updating password...

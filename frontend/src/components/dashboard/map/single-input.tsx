@@ -81,7 +81,7 @@ const GeocodingInput: React.FC<GeocodingInputProps> = ({ map, setToggleGeocoding
           value={inputValue}
           onChange={handleChange}
           placeholder="Search Ambalay Maps"
-          className="w-full py-3 shadow-xl mt-3 font-sora border-[1px] border-green-800 pl-5 pr-12 rounded-full dark:bg-inherit focus:outline-none transition-all"
+          className="w-full py-3 shadow-xl mt-3 font-sora border-[1px] border-green-800 pl-5 pr-12 rounded-full dark:bg-inheritsi focus:outline-none transition-all"
         />
 
         <MdDirections

@@ -16,49 +16,30 @@ import { Form } from "@/components/ui/form";
 import { useForm } from "react-hook-form";
 import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
 import { InputField, CheckboxField } from "@/components/Auth/FormFields";
 import { LoginFormValues, loginSchema } from "@/lib/schema/loginSchema";
+import { useAuthStore } from "@/store/useAuthStore";
 const Login = () => {
-  const [pending, setPending] = useState(false);
-  const { toast } = useToast();
-  const router = useRouter();
+
+  const { login, loading } = useAuthStore()
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
       password: "",
-      rememberMe: false,
     },
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    form.reset();
-    // await authClient.signIn.email(
-    //   {
-    //     email: data.email,
-    //     password: data.password,
-    //     rememberMe: data.rememberMe,
-    //   },
-    //   {
-    //     onRequest: () => {
-    //       setPending(true);
-    //     },
-    //     onSuccess: () => {
-    //       router.push("/dashboard");
-    //     },
-    //     onError: (ctx) => {
-    //       console.log("error", ctx);
-    //       toast({
-    //         variant: "destructive",
-    //         title: "something went wrong",
-    //         description: ctx.error.message ?? "something went wrong",
-    //       });
-    //     },
-    //   },
-    // );
-    setPending(false);
+    try {
+      login(data);
+      form.reset();
+      redirect("/dashboard");
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -115,8 +96,8 @@ const Login = () => {
                   </Link>
                 </div>
 
-                <Button type="submit" className="w-full" disabled={pending}>
-                  {pending ? (
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
                       Please wait...

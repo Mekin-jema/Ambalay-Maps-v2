@@ -16,52 +16,35 @@ import {
 } from "@/components/ui/card";
 import {
   Form,
-  // FormControl,
-  // FormField,
-  // FormItem,
-  // FormLabel,
-  // FormMessage,
 } from "@/components/ui/form";
 import Link from "next/link";
-import { useToast } from "@/hooks/use-toast";
 import { InputField } from "@/components/Auth/FormFields";
 import {
   ForgotPasswordFormValues,
   forgotPasswordSchema,
 } from "@/lib/schema/forgotPasswordSchema";
-// import { authClient } from "@/lib/auth-client";
+import { useAuthStore } from "@/store/useAuthStore";
+import { redirect } from "next/navigation";
 
 const ForgotPassword = () => {
+
+  const { forgotPassword, loading } = useAuthStore()
   const form = useForm<ForgotPasswordFormValues>({
     resolver: zodResolver(forgotPasswordSchema),
     defaultValues: {
       email: "",
     },
   });
-  const [pending, setPending] = useState(false);
-  const { toast } = useToast();
+
 
   const onSubmit = async (data: ForgotPasswordFormValues) => {
-    setPending(true);
-    // const { error } = await authClient.forgetPassword({
-    //   email: data.email,
-    //   redirectTo: "/reset-password",
-    // });
-    // if (error) {
-    //   toast({
-    //     title: "Error",
-    //     description: error.message,
-    //     variant: "destructive",
-    //   });
-    // } else {
-    //   toast({
-    //     title: "Success",
-    //     description:
-    //       "If an account exists with this email, you will receive a password reset link",
-    //     variant: "default",
-    //   });
-    // }
-    setPending(false);
+    try {
+      forgotPassword(data.email);
+      form.reset();
+      redirect("/auth/login");
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
   };
 
   return (
@@ -102,8 +85,8 @@ const ForgotPassword = () => {
                   icon={<Mail className="h-5 w-5 text-muted-foreground" />}
                 />
 
-                <Button type="submit" className="w-full" disabled={pending}>
-                  {pending ? (
+                <Button type="submit" className="w-full" disabled={loading}>
+                  {loading ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin mr-2" />
                       Sending email...
