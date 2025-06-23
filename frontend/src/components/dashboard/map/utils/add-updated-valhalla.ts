@@ -1,5 +1,5 @@
 // Import dependencies
-import { setWaypoints } from "@/Redux/MapSlice";
+import { setWaypoints } from "@/store/MapSlice";
 import maplibregl, { Map, Marker, Popup, GeoJSONSource, LngLatLike } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { getPlaceNameFromCoordinates } from "../api";

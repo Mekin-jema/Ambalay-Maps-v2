@@ -4,33 +4,33 @@ import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { authClient } from "@/lib/auth-client";
+// import { authClient } from "@/lib/auth-client";
 
 const Dashboard = () => {
   const [isSigningOut, setIsSigningOut] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleSignOut = async () => {
-    setIsSigningOut(true);
-    try {
-      await authClient.signOut();
-      toast({
-        title: "Signed out successfully",
-        description: "You have been signed out successfully.",
-      });
-      router.push("/auth/login");
-    } catch (error) {
-      console.error("Sign out error:", error);
-      toast({
-        variant: "destructive",
-        title: "error signing out",
-        description: "there is a problem signing out",
-      });
-    } finally {
-      setIsSigningOut(false);
-    }
-  };
+  // const handleSignOut = async () => {
+  //   setIsSigningOut(true);
+  //   try {
+  //     await authClient.signOut();
+  //     toast({
+  //       title: "Signed out successfully",
+  //       description: "You have been signed out successfully.",
+  //     });
+  //     router.push("/auth/login");
+  //   } catch (error) {
+  //     console.error("Sign out error:", error);
+  //     toast({
+  //       variant: "destructive",
+  //       title: "error signing out",
+  //       description: "there is a problem signing out",
+  //     });
+  //   } finally {
+  //     setIsSigningOut(false);
+  //   }
+  // };
 
   return (
     <div className="p-4">
@@ -38,7 +38,7 @@ const Dashboard = () => {
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <Button
           variant="outline"
-          onClick={handleSignOut}
+          // onClick={handleSignOut}
           disabled={isSigningOut}
         >
           {isSigningOut ? (

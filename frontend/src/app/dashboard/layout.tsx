@@ -9,6 +9,7 @@ import { SearchProvider } from "@/context/search-context";
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
 import Header from "@/components/layout/header";
 import "./theme.css"
+import ProtectedRoute from "@/components/ProtectedRoute";
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   // const session = await auth.api.getSession({ headers: await headers() });
 
@@ -20,17 +21,21 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
 
   const pathname = usePathname();
   const isDashboard = pathname?.startsWith("/dashboard/map");
+
   return (
-    <SidebarProvider className="dark:bg-[#16423C] p-3 dark:pt-1 font-sora ">
-      <SearchProvider>
-        <AppSidebar />
-        <SidebarInset className="ml-2 rounded-xl">
-          <div className=" pt-2">
-            {!isDashboard && <Header />}
-            {children}
-          </div>
-        </SidebarInset>
-      </SearchProvider>
-    </SidebarProvider>
+    <ProtectedRoute>
+
+      <SidebarProvider className="dark:bg-[#16423C] p-3 dark:pt-1 font-sora ">
+        <SearchProvider>
+          <AppSidebar />
+          <SidebarInset className="ml-2 rounded-xl">
+            <div className=" pt-2">
+              {!isDashboard && <Header />}
+              {children}
+            </div>
+          </SidebarInset>
+        </SearchProvider>
+      </SidebarProvider>
+    </ProtectedRoute>
   );
 }

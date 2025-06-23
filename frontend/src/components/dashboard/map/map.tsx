@@ -72,7 +72,7 @@ const Map: React.FC = () => {
   const [selectedStyle, setSelectedStyle] = useState<string>(variablelStyles[0].name);
 
   const { state } = useSidebar();
-  const dispatch = useDispatch<typeof import('../../../Redux/Store').store.dispatch>();
+  const dispatch = useDispatch<typeof import('../../../store/Store').store.dispatch>();
   const { waypoints } = useSelector((state: any) => state.map);
   const myAPIKey = process.env.NEXT_PUBLIC_API_KEY || "";
   console.log("API Key:", myAPIKey);

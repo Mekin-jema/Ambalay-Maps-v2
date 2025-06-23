@@ -73,7 +73,7 @@ const ForgotPassword = () => {
               <div className="w-8 h-8 rounded-md bg-primary/90 flex items-center justify-center text-white font-bold">
                 A
               </div>
-              <h1 className="text-2xl font-bold">AffiliateX</h1>
+              <h1 className="text-2xl font-bold">Ambalay Maps</h1>
             </div>
           </Link>
         </div>
@@ -121,7 +121,7 @@ const ForgotPassword = () => {
             <div className="text-center text-sm">
               Remember your password?{" "}
               <Link
-                href="/login"
+                href="/auth/login"
                 className="font-medium text-primary underline-offset-4 hover:underline"
               >
                 Log in

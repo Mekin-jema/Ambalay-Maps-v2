@@ -3,14 +3,14 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { setWaypoints } from "../../../Redux/MapSlice";
+import { setWaypoints } from "../../../store/MapSlice";
 import AddressInput from "./Input";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { motion, useAnimation } from "framer-motion";
 import { useEffect } from "react";
 import { Car, Bus, MapPin, X, Bike, Plus } from "lucide-react";
 import { MdDirections, MdDirectionsCarFilled, MdDirectionsTransitFilled, MdDirectionsWalk, MdOutlineAirplanemodeActive } from "react-icons/md";
-import { RootState } from "@/Redux/Store";
+import { RootState } from "@/store/Store";
 import RenderDirectionDetail from "./drectionDetail";
 
 // Types for Waypoint and Props
@@ -25,7 +25,7 @@ interface AddressBoxProps {
   setToggleGeocoding: (value: boolean) => void;
   profile: string;
   setProfile: (profile: string) => void;
- map:maplibregl.Map | null;
+  map: maplibregl.Map | null;
 }
 
 const AddressBox: React.FC<AddressBoxProps> = ({ route, setToggleGeocoding, profile, setProfile, map }) => {
@@ -157,7 +157,7 @@ const AddressBox: React.FC<AddressBoxProps> = ({ route, setToggleGeocoding, prof
                   // waypoint={waypoint}
                   setAddress={(address: Waypoint) => updateWaypoint(index, address)}
                   placeholder={index === 0 ? "Starting Address" : `Destination Address ${index}`}
-                  // className="w-full p-0 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                // className="w-full p-0 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
               </motion.div>
             ))}
@@ -184,7 +184,7 @@ const AddressBox: React.FC<AddressBoxProps> = ({ route, setToggleGeocoding, prof
 
           <CardFooter className="p-0 w-full">
             <div className="w-full">
-              <RenderDirectionDetail route={route } map={map} />
+              <RenderDirectionDetail route={route} map={map} />
             </div>
           </CardFooter>
         </motion.div>

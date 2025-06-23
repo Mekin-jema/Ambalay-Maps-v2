@@ -6,7 +6,7 @@ import { GoogleIcon } from "@/components/ui/google-icon";
 import { Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { authClient } from "@/lib/auth-client";
+// import { authClient } from "@/lib/auth-client";
 
 interface GoogleAuthButtonProps {
   action: "login" | "signup";
@@ -24,31 +24,31 @@ export const GoogleAuthButton = ({
 
   const handleGoogleAuth = async () => {
     setIsLoading(true);
-    try {
-      await authClient.signIn.social({
-        provider: "google",
-        callbackURL: redirectTo,
-      });
-      toast({
-        title:
-          action === "login"
-            ? "Logged in successfully"
-            : "Signed up successfully",
-        description:
-          action === "login"
-            ? "You have been logged in successfully."
-            : "Your account has been created successfully.",
-      });
-    } catch (error) {
-      console.log("Google Auth Error:", error);
-      toast({
-        variant: "destructive",
-        title: action === "login" ? "Error logging in" : "Error signing up",
-        description: `Could not ${action} with Google. Please try again.`,
-      });
-    } finally {
-      setIsLoading(false);
-    }
+    //   try {
+    //     await authClient.signIn.social({
+    //       provider: "google",
+    //       callbackURL: redirectTo,
+    //     });
+    //     toast({
+    //       title:
+    //         action === "login"
+    //           ? "Logged in successfully"
+    //           : "Signed up successfully",
+    //       description:
+    //         action === "login"
+    //           ? "You have been logged in successfully."
+    //           : "Your account has been created successfully.",
+    //     });
+    //   } catch (error) {
+    //     console.log("Google Auth Error:", error);
+    //     toast({
+    //       variant: "destructive",
+    //       title: action === "login" ? "Error logging in" : "Error signing up",
+    //       description: `Could not ${action} with Google. Please try again.`,
+    //     });
+    //   } finally {
+    //     setIsLoading(false);
+    //   }
   };
 
   return (
