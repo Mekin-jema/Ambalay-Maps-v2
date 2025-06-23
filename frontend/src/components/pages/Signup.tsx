@@ -28,7 +28,7 @@ import { useToast } from "@/hooks/use-toast";
 import { GoogleAuthButton } from "@/components/Auth/GoogleAuthButton";
 import { InputField } from "@/components/Auth/FormFields";
 import { SignUpFormValues, signUpSchema } from "@/lib/schema/signupSchema";
-import {authClient} from "@/lib/auth-client";
+// import {authClient} from "@/lib/auth-client";
 
 const Signup = () => {
   const form = useForm<SignUpFormValues>({
@@ -45,34 +45,34 @@ const Signup = () => {
 
   const onSubmit = async (data: SignUpFormValues) => {
     form.reset()
-    await authClient.signUp.email({
-      email: data.email,
-      password: data.password,
-      name: data.name,
-    },
-      {
-        onRequest:()=>{
-          setPending(true)
-        },
-        onSuccess:()=>{
-          toast({
-            title: "Account created",
-            description: "your account has been created check your email for confirmation",
-          });
-        console.log("success")
-        },
-        onError: (ctx) => {
-          console.log("error",ctx)
-          toast({
-            variant:"destructive",
-            title: "something went wrong",
-            description: ctx.error.message??"something went wrong."
-          });
-          console.log("error",ctx.error.message)
-      },
+    // await authClient.signUp.email({
+    //   email: data.email,
+    //   password: data.password,
+    //   name: data.name,
+    // },
+    //   {
+    //     onRequest:()=>{
+    //       setPending(true)
+    //     },
+    //     onSuccess:()=>{
+    //       toast({
+    //         title: "Account created",
+    //         description: "your account has been created check your email for confirmation",
+    //       });
+    //     console.log("success")
+    //     },
+    //     onError: (ctx) => {
+    //       console.log("error",ctx)
+    //       toast({
+    //         variant:"destructive",
+    //         title: "something went wrong",
+    //         description: ctx.error.message??"something went wrong."
+    //       });
+    //       console.log("error",ctx.error.message)
+    //   },
 
-    })
-    setPending(false)
+    // })
+    // setPending(false)
   };
 
   return (

@@ -29,7 +29,7 @@ import {
   ForgotPasswordFormValues,
   forgotPasswordSchema,
 } from "@/lib/schema/forgotPasswordSchema";
-import { authClient } from "@/lib/auth-client";
+// import { authClient } from "@/lib/auth-client";
 
 const ForgotPassword = () => {
   const form = useForm<ForgotPasswordFormValues>({
@@ -43,24 +43,24 @@ const ForgotPassword = () => {
 
   const onSubmit = async (data: ForgotPasswordFormValues) => {
     setPending(true);
-    const { error } = await authClient.forgetPassword({
-      email: data.email,
-      redirectTo: "/reset-password",
-    });
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Success",
-        description:
-          "If an account exists with this email, you will receive a password reset link",
-        variant: "default",
-      });
-    }
+    // const { error } = await authClient.forgetPassword({
+    //   email: data.email,
+    //   redirectTo: "/reset-password",
+    // });
+    // if (error) {
+    //   toast({
+    //     title: "Error",
+    //     description: error.message,
+    //     variant: "destructive",
+    //   });
+    // } else {
+    //   toast({
+    //     title: "Success",
+    //     description:
+    //       "If an account exists with this email, you will receive a password reset link",
+    //     variant: "default",
+    //   });
+    // }
     setPending(false);
   };
 

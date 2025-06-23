@@ -29,7 +29,7 @@ import {
   ResetPasswordFormValues,
   resetPasswordSchema,
 } from "@/lib/schema/resetPasswordSchema";
-import { authClient } from "@/lib/auth-client";
+// import { authClient } from "@/lib/auth-client";
 
 const ResetPassword = () => {
   const searchParams = useSearchParams();
@@ -68,24 +68,24 @@ const ResetPassword = () => {
 
   const onSubmit = async (data: ResetPasswordFormValues) => {
     setPending(true);
-    const { error } = await authClient.resetPassword({
-      newPassword: data.password,
-      token,
-    });
-    if (error) {
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Success",
-        description:
-          "Your password has been reset successfully. login to continue",
-      });
-      router.push("/login");
-    }
+    // const { error } = await authClient.resetPassword({
+    //   newPassword: data.password,
+    //   token,
+    // });
+    // if (error) {
+    //   toast({
+    //     title: "Error",
+    //     description: error.message,
+    //     variant: "destructive",
+    //   });
+    // } else {
+    //   toast({
+    //     title: "Success",
+    //     description:
+    //       "Your password has been reset successfully. login to continue",
+    //   });
+    //   router.push("/login");
+    // }
     setPending(false);
   };
 

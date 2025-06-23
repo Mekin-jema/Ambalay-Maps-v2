@@ -2,14 +2,14 @@
 import React, { ReactNode } from "react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth";
+// import { auth } from "@/lib/auth";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { SearchProvider } from "@/context/search-context";
 import { AppSidebar } from "@/components/dashboard/app-sidebar";
 import Header from "@/components/layout/header";
 import "./theme.css"
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
-  const session = await auth.api.getSession({ headers: await headers() });
+  // const session = await auth.api.getSession({ headers: await headers() });
 
   // Uncomment this to enforce authentication
   // if (!session) {
@@ -22,7 +22,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
         <AppSidebar />
         <SidebarInset className="ml-2 rounded-xl">
           <div className="dark:bg-[#021815] pt-2">
-        
+
             {children}
           </div>
         </SidebarInset>
