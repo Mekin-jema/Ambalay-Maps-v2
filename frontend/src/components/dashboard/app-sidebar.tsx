@@ -23,32 +23,29 @@ interface AppSidebarProps {
 export function AppSidebar({ ...props }: AppSidebarProps) {
   const { state } = useSidebar(); // Assuming state type is 'expanded' | 'collapsed'
 
+
+
   return (
     <Sidebar
       collapsible="icon"
       {...props}
       className="dark:bg-[#021815] bg-[#16423C] text-white mx-3 mt-3 rounded-xl"
     >
+      {/* Conditionally render logo only when sidebar is expanded */}
       {state !== "collapsed" ? (
-        <div className="flex justify-center items-center">
-          <Image
-            src={logo}
-            alt="logo image"
-            className="mt-2 w-[120px] h-[50.05px]"
-            width={120}
-            height={50}
-            priority
-          />
+        <div className="flex justify-center items-center h-[60px]">
+          <Image src={logo} alt="logo image" className="mt-2 w-[98.3px] h-full" />
         </div>
       ) : (
-        <span className="h-[86px]" />
+        <span className="h-[86px]"></span>
       )}
+
 
       <SidebarContent>
         <NavMain items={sidebarData.navMain[0].items} />
       </SidebarContent>
       <SidebarFooter className="mb-1">
-        <NavUser  />
+        <NavUser />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

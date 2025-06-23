@@ -31,7 +31,7 @@ const GeocodingInput: React.FC<GeocodingInputProps> = ({ map, setToggleGeocoding
   const queryPlaces = async (query: string): Promise<void> => {
     if (query) {
       const res = await getPlaces(query);
-      
+
       if (res) {
         const formattedSuggestions = res.map((place: any) => ({
           lat: place.lat,
@@ -55,7 +55,7 @@ const GeocodingInput: React.FC<GeocodingInputProps> = ({ map, setToggleGeocoding
   const handleSelectSuggestion = (suggestion: Suggestion): void => {
     const { lat, lon, name, display_name } = suggestion;
     if (!map) return;
-    
+
     if (map.currentMarker) {
       map.currentMarker.remove();
     }
@@ -81,7 +81,7 @@ const GeocodingInput: React.FC<GeocodingInputProps> = ({ map, setToggleGeocoding
           value={inputValue}
           onChange={handleChange}
           placeholder="Search Ambalay Maps"
-          className="w-full py-3 shadow-xl mt-3 font-sora border-[1px] border-green-800 pl-5 pr-12 rounded-full text-black focus:outline-none transition-all"
+          className="w-full py-3 shadow-xl mt-3 font-sora border-[1px] border-green-800 pl-5 pr-12 rounded-full dark:bg-inherit focus:outline-none transition-all"
         />
 
         <MdDirections

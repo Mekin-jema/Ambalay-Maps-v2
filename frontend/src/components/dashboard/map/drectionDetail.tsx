@@ -14,7 +14,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Volume2 } from "lucide-react"; // optional icons if using lucide-react
 
 // Dynamically import maplibre-gl to avoid server-side rendering issues
-import maplibregl from "maplibre-gl"; 
+import maplibregl from "maplibre-gl";
 import Image from "next/image";
 import { DIRECTION_ARROWS } from "../constants/TurnByTurnArrows";
 
@@ -134,9 +134,8 @@ const RenderDirectionDetail: React.FC<RenderDirectionDetailProps> = ({
               return (
                 <div
                   key={idx}
-                  className={`py-3 px-4 flex justify-between items-start hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer ${
-                    isWaypoint ? "bg-blue-50 dark:bg-blue-900" : ""
-                  }`}
+                  className={`py-3 px-4 flex justify-between items-start hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer ${isWaypoint ? "bg-blue-50 dark:bg-blue-900" : ""
+                    }`}
                   onClick={() => handleStepClick(step)}
                 >
                   <div className="flex items-center gap-3">

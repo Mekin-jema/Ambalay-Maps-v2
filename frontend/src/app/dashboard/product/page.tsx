@@ -1,4 +1,3 @@
-import Header from '@/components/layout/header';
 import PageContainer from '@/components/layout/page-container';
 import { buttonVariants } from '@/components/ui/button';
 import { Heading } from '@/components/ui/heading';
@@ -30,7 +29,6 @@ export default async function Page(props: pageProps) {
 
   return (
     <PageContainer scrollable={false}>
-          <Header/>
       <div className='flex flex-1 flex-col space-y-4'>
         <div className='flex items-start justify-between'>
           <Heading

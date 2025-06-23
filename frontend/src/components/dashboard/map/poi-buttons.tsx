@@ -60,7 +60,7 @@ const CategoryScroll: React.FC<CategoryScrollProps> = ({ categories, activeCateg
   useEffect(() => {
     if (!scrollRef.current) return;
     checkScroll();
-    
+
     const ref = scrollRef.current;
     ref.addEventListener("scroll", checkScroll);
     return () => ref.removeEventListener("scroll", checkScroll);
@@ -79,7 +79,7 @@ const CategoryScroll: React.FC<CategoryScrollProps> = ({ categories, activeCateg
   };
 
   return (
-    <div className={`fixed ${state === "collapsed" ? "md:w-[900px]" : "md:w-[680px]"} right-3 lg:top-16 top-16 w-full`} ref={containerRef}>
+    <div className={`fixed ${state === "collapsed" ? "md:w-[900px]" : "md:w-[680px]"} right-3 lg:top-5 top-5 w-full`} ref={containerRef}>
       {showLeft && (
         <button
           onClick={() => scroll("left")}
@@ -99,12 +99,11 @@ const CategoryScroll: React.FC<CategoryScrollProps> = ({ categories, activeCateg
           <button
             key={category.name}
             onClick={() => handleCategoryClick(category)}
-            className={`flex-shrink-0 flex items-center px-3 py-1 border border-[#00432F] space-x-2 rounded-full ${
-              activeCategory === category.name ? "bg-[#00432F] text-white" : "bg-white text-black"
-            }`}
-            // disabled={loading}
+            className={`flex-shrink-0 flex items-center px-3 py-1 border border-[#00432F] space-x-2 rounded-full ${activeCategory === category.name ? "bg-[#00432F] text-white" : "bg-white text-black"
+              }`}
+          // disabled={loading}
           >
-            <category.IconComponent  />
+            <category.IconComponent />
             <span className="text-sm">{category.name}</span>
           </button>
         ))}

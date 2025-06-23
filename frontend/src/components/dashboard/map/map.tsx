@@ -317,7 +317,8 @@ const Map: React.FC = () => {
       </div>
 
       <ToastContainer position="top-center" autoClose={10000} />
-      <div ref={mapContainer} className="absolute top-0 inset-0 bg-white w-full h-full rounded-[18px]" />
+      <div ref={mapContainer} className="fixed  z-0 top-0 bottom-0  bg-white w-full h-full rounded-[18px]" />
+
       <CategoryScroll
         categories={categories}
         activeCategory={activeCategory}
