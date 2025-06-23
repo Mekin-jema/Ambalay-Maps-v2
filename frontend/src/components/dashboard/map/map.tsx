@@ -56,7 +56,7 @@ const Map: React.FC = () => {
   // Refs for map container and instance
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<maplibregl.Map | null>(null);
-  
+
   // State variables with TypeScript types
   const [route, setRoute] = useState<any>(null);
   const [map, setMap] = useState<maplibregl.Map | null>(null);
@@ -75,7 +75,7 @@ const Map: React.FC = () => {
   const dispatch = useDispatch<typeof import('../../../Redux/Store').store.dispatch>();
   const { waypoints } = useSelector((state: any) => state.map);
   const myAPIKey = process.env.NEXT_PUBLIC_API_KEY || "";
-  console.log("API Key:", myAPIKey);  
+  console.log("API Key:", myAPIKey);
 
   // Initialize MapLibre
   useEffect(() => {
@@ -103,7 +103,7 @@ const Map: React.FC = () => {
     currentMap.on("click", "poi-layer", (e) => {
       const features = e.features?.[0];
       if (!features) return;
-      
+
       const poiId = features.id;
       currentMap.setPaintProperty("poi-layer", "icon-size", [
         "case",
@@ -125,7 +125,7 @@ const Map: React.FC = () => {
     // };
     layerSwitcher.appendChild(satelliteButton);
     currentMap.addControl(
-      { onAdd: () => layerSwitcher, onRemove: () => {} },
+      { onAdd: () => layerSwitcher, onRemove: () => { } },
       "bottom-right"
     );
 
@@ -148,7 +148,7 @@ const Map: React.FC = () => {
         const strokeColor = "ffffff00";
         const iconType = 'material';
         img.src = `https://api.geoapify.com/v1/icon/?type=material&color=${encodeURIComponent(color)}&icon=${iconName}&iconType=${iconType}&strokeColor=${encodeURIComponent(strokeColor)}&apiKey=${myAPIKey}`;
-        
+
         img.onload = () => {
           currentMap.addImage(missingImageId, img);
         };
@@ -162,7 +162,7 @@ const Map: React.FC = () => {
       new maplibregl.GeolocateControl({
         positionOptions: { enableHighAccuracy: true },
         trackUserLocation: true,
-   
+
       }),
       "bottom-right"
     );
@@ -219,7 +219,7 @@ const Map: React.FC = () => {
   // Fetch and render traffic data
   useEffect(() => {
     if (!map) return;
-    
+
     const getTrafficData = async () => {
       try {
         const data = await fetchTrafficData();
@@ -240,21 +240,21 @@ const Map: React.FC = () => {
 
   const handleCategoryClick = async (category: { name: string; tag: string; icon: string; textColor: string }) => {
     if (!map || loading) return;
-  
+
     if (activeCategory === category.name) {
       setActiveCategory(null);
       setPois([]);
       removePOILayerFromMap(map);
       return;
     }
-  
+
     setShowCategoryDetailPopup(true);
     setActiveCategory(category.name);
-  
+
     try {
       const center = map.getCenter().toArray();
       const data = await fetchPOIs(category.tag, center);
-  
+
       if (!data || !data.elements) {
         console.error("Data or elements are undefined");
         return;
@@ -273,7 +273,7 @@ const Map: React.FC = () => {
         tourism: element.tags?.tourism || "",
         website: element.tags?.website || "",
       }));
-  
+
       setPois(poisData);
       removePOILayerFromMap(map);
       addPOILayerToMap(map, poisData);
@@ -294,22 +294,22 @@ const Map: React.FC = () => {
           </div>
         </div>
       )}
-      
-      <MapStyles 
-        variablelStyles={variablelStyles} 
-        selectedStyle={selectedStyle} 
-        handleStyleChange={handleStyleChange} 
+
+      <MapStyles
+        variablelStyles={variablelStyles}
+        selectedStyle={selectedStyle}
+        handleStyleChange={handleStyleChange}
       />
 
       <div className={`fixed top-0 ${state === "collapsed" ? "md:left-[60px]" : "md:left-[300px]"} left-0 flex z-10 items-center`}>
         {/* <SidebarTrigger className="ml-2" /> */}
         {toggleGeocoding ? (
-          <AddressBox 
-            route={route} 
-            map={map} 
-            setToggleGeocoding={setToggleGeocoding} 
-            profile={profile} 
-            setProfile={setProfile} 
+          <AddressBox
+            route={route}
+            map={map}
+            setToggleGeocoding={setToggleGeocoding}
+            profile={profile}
+            setProfile={setProfile}
           />
         ) : (
           <GeocodingInput map={map} setToggleGeocoding={setToggleGeocoding} />
@@ -318,12 +318,12 @@ const Map: React.FC = () => {
 
       <ToastContainer position="top-center" autoClose={10000} />
       <div ref={mapContainer} className="absolute top-0 inset-0 bg-white w-full h-full rounded-[18px]" />
-      <CategoryScroll 
-        categories={categories} 
-        activeCategory={activeCategory} 
-        handleCategoryClick={handleCategoryClick} 
+      <CategoryScroll
+        categories={categories}
+        activeCategory={activeCategory}
+        handleCategoryClick={handleCategoryClick}
       />
-      
+
       {/* <div className="relative z-40">
         {showCategoryDetailPopup && pois.length > 0 ? (
           <Categories
